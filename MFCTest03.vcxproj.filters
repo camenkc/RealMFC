@@ -57,6 +57,21 @@
     <ClInclude Include="CDlgBookView.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CBorrowDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CReturnDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CReaderChangeDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CReaderLoginDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CReaderRegisterDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCTest03.cpp">
@@ -78,6 +93,21 @@
       <Filter>源文件\MyControls</Filter>
     </ClCompile>
     <ClCompile Include="CDlgBookView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CBorrowDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CReturnDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CReaderChangeDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CReaderLoginDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CReaderRegisterDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
