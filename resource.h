@@ -6,9 +6,17 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_MFCTEST03_DIALOG            102
+#define IDD_DIALOGIndex                 102
 #define IDR_MAINFRAME                   128
 #define IDD_BOOKINPUT                   131
+#define IDD_DIALOGBOOKINPUT             131
+#define IDD_DIALOGBOOKINT               131
 #define IDD_DIALOGBOOKVIEW              133
+#define IDD_DIALOGReaderRegist          136
+#define IDD_DIALOGReaderLogin           137
+#define IDD_DIALOGReaderEdit            138
+#define IDD_DIALOGBookBorrow            139
+#define IDD_DIALOGBookReturn            146
 #define IDC_LIST2                       1001
 #define IDC_EDIT1                       1002
 #define IDC_BUTTON1                     1003
@@ -33,14 +41,17 @@
 #define ID_32776                        32776
 #define ID_32777                        32777
 #define ID_32778                        32778
+#define ID_32779                        32779
+#define ID_32780                        32780
+#define ID_32781                        32781
 #define IDM_MENU_MAIN                   58112
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         32779
+#define _APS_NEXT_RESOURCE_VALUE        150
+#define _APS_NEXT_COMMAND_VALUE         32782
 #define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

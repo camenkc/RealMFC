@@ -354,5 +354,66 @@ CBookDataset :: CBookDataset(){ //构造函数 完成 aFields 的初始化
 //--------------------------------------------------
 /************************************************
    CBookDataset 成员函数 End
+
+   CReaderDataset 成员函数Start
 *************************************************/
 //--------------------------------------------------
+
+CReaderDataset :: CReaderDataset()
+{
+	EField aType[4] = { eInt, eString, eString, eInt };
+	char* aName[4] = { "Id","密码","姓名","用户权限" };//用户权限分2级 0为admin 1为普通用户
+	CField field;
+	for (int i = 0; i < 4; i++)
+	{
+		field.eFieldType = aType[i];
+		field.sFieldName = aName[i];
+		aFields.push_back(field);
+	}
+
+	sFileName = getExePath() + "\\Readers.dat";
+
+}
+//--------------------------------------------------
+/************************************************
+   CReaderDataset 成员函数 End
+
+   CHistoryDataset 成员函数Start
+*************************************************/
+//--------------------------------------------------
+
+
+//完善类以后 把下面的注释取消掉
+//KevinZ 6.8
+/*
+
+CHistoryDataset::CHistoryDataset()
+{
+	EField aType[6] = { eInt, eString, eInt, eString,eString,eInt };
+	char* aName[6] = { "Id","读者姓名","借阅图书id","借阅图书名称","借阅日期","借阅类型" };//0为借阅 1为归还
+	CField field;
+	for (int i = 0; i < 5; i++)
+	{
+		field.eFieldType = aType[i];
+		field.sFieldName = aName[i];
+		aFields.push_back(field);
+	}
+
+	sFileName = getExePath() + "\\History.dat";
+
+}CBorrowDataset::CBorrowDataset()
+{
+	EField aType[5] = { eInt, eString, eInt, eString,eString };
+	char* aName[5] = { "Id","读者姓名","借阅图书id","借阅图书名称","借阅日期" };
+	CField field;
+	for (int i = 0; i < 5; i++)
+	{
+		field.eFieldType = aType[i];
+		field.sFieldName = aName[i];
+		aFields.push_back(field);
+	}
+
+	sFileName = getExePath() + "\\Borrow.dat";
+
+}
+*/
