@@ -61,7 +61,7 @@ END_MESSAGE_MAP()
 CMFCTest03Dlg::CMFCTest03Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFCTEST03_DIALOG, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICONMuQ);
 }
 
 void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)

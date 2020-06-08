@@ -17,6 +17,9 @@
 #define IDD_DIALOGReaderEdit            138
 #define IDD_DIALOGBookBorrow            139
 #define IDD_DIALOGBookReturn            146
+#define IDB_PNG1                        152
+#define IDI_ICON1                       153
+#define IDI_ICONMuQ                     153
 #define IDC_LIST2                       1001
 #define IDC_EDIT1                       1002
 #define IDC_BUTTON1                     1003
@@ -50,9 +53,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        150
+#define _APS_NEXT_RESOURCE_VALUE        154
 #define _APS_NEXT_COMMAND_VALUE         32782
-#define _APS_NEXT_CONTROL_VALUE         1013
+#define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
