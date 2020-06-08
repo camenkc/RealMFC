@@ -35,9 +35,4 @@ public:
 	afx_msg void OnMenuExit();
 	afx_msg void OnBookInput();
 	afx_msg void OnViewBook();
-	afx_msg void OnBorrowBook();
-	afx_msg void OnReturnBook();
-	afx_msg void OnReaderChange();
-	afx_msg void OnReaderLogin();
-	afx_msg void OnRegister();
 };
