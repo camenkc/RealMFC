@@ -6,6 +6,11 @@
 #include "framework.h"
 #include "MFCTest03.h"
 #include "MFCTest03Dlg.h"
+#include "CBorrowDlg.h"
+#include "CReturnDlg.h"
+#include "CReaderChangeDlg.h"
+#include "CReaderLoginDlg.h"
+#include "CReaderRegisterDlg.h"
 #include "afxdialogex.h"
 
 #include"CBookInDlg.h"
@@ -71,6 +76,11 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32773, &CMFCTest03Dlg::OnMenuExit)
 	ON_COMMAND(ID_32771, &CMFCTest03Dlg::OnBookInput)
 	ON_COMMAND(ID_32772, &CMFCTest03Dlg::OnViewBook)
+	ON_COMMAND(ID_32779, &CMFCTest03Dlg::OnBorrowBook)
+	ON_COMMAND(ID_32780, &CMFCTest03Dlg::OnReturnBook)
+	ON_COMMAND(ID_32781, &CMFCTest03Dlg::OnReaderChange)
+	ON_COMMAND(ID_32777, &CMFCTest03Dlg::OnReaderLogin)
+	ON_COMMAND(ID_32778, &CMFCTest03Dlg::OnRegister)
 END_MESSAGE_MAP()
 
 
@@ -185,5 +195,41 @@ void CMFCTest03Dlg::OnBookInput()
 void CMFCTest03Dlg::OnViewBook()
 {
 	CDlgBookView dlg;
+	dlg.DoModal();
+}
+
+//按下借阅图书的按钮
+void CMFCTest03Dlg::OnBorrowBook()
+{
+	CBorrowDlg dlg;
+	dlg.DoModal();
+}
+
+//按下归还图书的按钮
+void CMFCTest03Dlg::OnReturnBook()
+{
+	CReturnDlg dlg;
+	dlg.DoModal();
+}
+
+//按下修改读者信息按钮
+void CMFCTest03Dlg::OnReaderChange()
+{
+	CReaderChangeDlg dlg;
+	dlg.DoModal();
+}
+
+//按下登录按钮
+void CMFCTest03Dlg::OnReaderLogin()
+{
+	CReaderLoginDlg dlg;
+	dlg.DoModal();
+}
+
+
+//按下注册按钮
+void CMFCTest03Dlg::OnRegister()
+{
+	CReaderRegisterDlg dlg;
 	dlg.DoModal();
 }
