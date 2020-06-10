@@ -43,7 +43,6 @@ END_MESSAGE_MAP()
 //按下了注册按钮
 void CReaderRegisterDlg::OnBnClickedButton1()
 {
-	pReaderDataset->readAllData();
 	//自动填充读者号
 	int maxReadrNum = pReaderDataset->getMaxVal("Id");
 	maxReadrNum += 1;
@@ -107,4 +106,16 @@ BOOL CReaderRegisterDlg::OnInitDialog()
 	ReaderNumberEditBox.SetWindowTextA(s1);
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
+}
+
+
+BOOL CReaderRegisterDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当案件为enter和escape的时候不自动退出
+		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE) {
+			return TRUE;	//返回1表示消息到此为止
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
 }

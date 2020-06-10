@@ -14,7 +14,7 @@ public:
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_MFCTEST03_DIALOG };
+	enum { IDD = IDD_DIALOGIndex };
 #endif
 
 	protected:
@@ -40,4 +40,9 @@ public:
 	afx_msg void OnReaderChange();
 	afx_msg void OnReaderLogin();
 	afx_msg void OnRegister();
+
+public:
+	static int NowLoginReader;//静态成员 表示当前登录的人的标识码 0为未登录 
+							//这样在全局都可以设置这个变量
+	CEdit NowReaderCode;
 };

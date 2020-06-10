@@ -32,4 +32,5 @@ public:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedButton1();
 	virtual BOOL OnInitDialog();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

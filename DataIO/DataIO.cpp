@@ -387,6 +387,19 @@ CReaderData* CReaderDataset::getItemByName(CString name) {
 	}
 	return NULL;
 }
+int CReaderDataset::CheckIfHasTheReader(CString name, CString password) {
+	vector<CReaderData>::iterator tmp = aData.begin();
+	int now = 1;
+	while (tmp != aData.end())
+	{
+		if ((*tmp)[2].Compare(name)==0 && (*tmp)[1].Compare(password)==0) {
+			return now;
+		}
+		now++;
+		tmp++;
+	}
+	return 0;
+}
 //--------------------------------------------------
 /************************************************
    CReaderDataset ³ÉÔ±º¯Êý End

@@ -59,7 +59,7 @@ END_MESSAGE_MAP()
 
 
 CMFCTest03Dlg::CMFCTest03Dlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_MFCTEST03_DIALOG, pParent)
+	: CDialogEx(IDD_DIALOGIndex, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICONMuQ);
 }
@@ -67,6 +67,7 @@ CMFCTest03Dlg::CMFCTest03Dlg(CWnd* pParent /*=nullptr*/)
 void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT2, NowReaderCode);
 }
 
 BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
@@ -224,6 +225,9 @@ void CMFCTest03Dlg::OnReaderLogin()
 {
 	CReaderLoginDlg dlg;
 	dlg.DoModal();
+	CString tmp;
+	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
+	NowReaderCode.SetWindowTextA(tmp);
 }
 
 

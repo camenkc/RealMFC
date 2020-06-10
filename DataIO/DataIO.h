@@ -270,6 +270,8 @@ public:
 	virtual ~CReaderDataset() {}
 
 	CReaderData* getItemByName(CString name);
+
+	int CheckIfHasTheReader(CString name, CString password);
 };
 
 

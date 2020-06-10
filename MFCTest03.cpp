@@ -25,8 +25,6 @@ CMFCTest03App::CMFCTest03App()
 {
 	// 支持重新启动管理器
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
-
-	// TODO: 在此处添加构造代码，
 	// 将所有重要的初始化放置在 InitInstance 中
 }
 
@@ -35,6 +33,9 @@ CMFCTest03App::CMFCTest03App()
 
 CMFCTest03App theApp;
 
+//因为这里是唯一的对象 也就是说这里的代码是唯一执行一次的 所以静态成员放在这里初始化
+//否则在include到其他文件进行定义时会报错！！！！
+int CMFCTest03Dlg::NowLoginReader = 0;
 
 // CMFCTest03App 初始化
 
