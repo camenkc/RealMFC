@@ -184,7 +184,7 @@ int CDataset<T> :: readAllData(){
 	aData.clear();
 
 	//读文件，每次读一条记录
-	while(is.good()){
+	while(is.good()){		
 		is.read((char *)&item, sizeof(T));
 		if (!is.good()) break;
 		aData.push_back(item);
@@ -373,6 +373,19 @@ CReaderDataset :: CReaderDataset()
 
 	sFileName = getExePath() + "\\Readers.dat";
 
+}
+
+
+CReaderData* CReaderDataset::getItemByName(CString name) {
+	vector<CReaderData>::iterator tmp=aData.begin();
+	while (tmp != aData.end()) {
+		if ((*tmp)[2] == name)
+		{
+			return &(*tmp);
+		}
+		tmp++;
+	}
+	return NULL;
 }
 //--------------------------------------------------
 /************************************************

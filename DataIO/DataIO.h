@@ -194,10 +194,9 @@ public:
 	}
 	//...............
 };
-
-//读者类的构建 待完善！
-//KevinZ 6.8
-
+/**************************************************/
+//读者类的构建 待完善！--KevinZ 6.8
+//第一眼看过去好像没什么要改变的  --Cake 6.10
 class CReaderData :public CDataItem
 {
 public:
@@ -205,7 +204,7 @@ public:
 	char   sKeyword[31];
 	char   sReaderName[31];
 	int	   nClass;
-
+	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
 	CReaderData(int id = 0, char* key = "", char* name = "", int nc = 1)
 	{
 		strcpy_s(sKeyword, 31, key);
@@ -254,7 +253,6 @@ public:
 };
 
 
-
 //图书数据集（若干条记录） 【注意：基类是模板类】
 class CBookDataset : public CDataset<CBookData> {
 public:
@@ -271,6 +269,7 @@ public:
 
 	virtual ~CReaderDataset() {}
 
+	CReaderData* getItemByName(CString name);
 };
 
 

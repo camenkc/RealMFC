@@ -225,6 +225,7 @@
     <None Include="res\MFCTest03.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\aiu84-9hvzn-002.ico" />
     <Image Include="res\MFCTest03.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
