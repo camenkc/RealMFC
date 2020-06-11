@@ -12,10 +12,8 @@
 #include "CReaderLoginDlg.h"
 #include "CReaderRegisterDlg.h"
 #include "afxdialogex.h"
-
 #include"CBookInDlg.h"
 #include"CDlgBookView.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -82,6 +80,8 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32781, &CMFCTest03Dlg::OnReaderChange)
 	ON_COMMAND(ID_32777, &CMFCTest03Dlg::OnReaderLogin)
 	ON_COMMAND(ID_32778, &CMFCTest03Dlg::OnRegister)
+	ON_WM_INITMENUPOPUP()
+	ON_COMMAND(ID_32776, &CMFCTest03Dlg::OnLogoutClicked)
 END_MESSAGE_MAP()
 
 
@@ -228,12 +228,36 @@ void CMFCTest03Dlg::OnReaderLogin()
 	CString tmp;
 	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
 	NowReaderCode.SetWindowTextA(tmp);
+	if (NowLoginReader != 0) {
+		//当前有人登录了 那么把菜单中的账号登录disable 把退出enable
+		CMenu* menu=GetMenu();//当前对话框的menu就是要修改的menu
+		CMenu* subMenu = menu->GetSubMenu(1);//第2个Menu栏(用户信息)
+		CMenu*  subsubMenu= subMenu->GetSubMenu(0);//的第一个Menu栏
+		//第一个参数0 表示第一个按钮 后面表示变灰
+		//网上有很多其他说法 但我觉得是必须Disable 和 变灰 同时进行才能实现Disable
+		//参见：
+		///https://blog.csdn.net/Jingle912/article/details/72357145?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase
+		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_GRAYED); 
+		//同时退出账号的按钮Enable了
+		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
+	}
 }
-
 
 //按下注册按钮
 void CMFCTest03Dlg::OnRegister()
 {
 	CReaderRegisterDlg dlg;
 	dlg.DoModal();
+}
+
+
+//按下退出账户按钮
+void CMFCTest03Dlg::OnLogoutClicked()
+{
+	NowLoginReader = 0;
+	NowReaderCode.SetWindowTextA("0");
+	CMenu* subMenu = GetMenu()->GetSubMenu(1);
+	subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
+	CMenu* subsubMenu = subMenu->GetSubMenu(0);
+	subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
 }
