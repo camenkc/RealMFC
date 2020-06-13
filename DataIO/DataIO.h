@@ -265,8 +265,8 @@ public:
 	int    nBorrowId;
 	int    nBorrowReaderId;
 	int    nBorrowBookId;
-	CString strBorrowDate;
-	CString strBorrowTime;
+	char   strBorrowDate[31];
+	char   strBorrowTime[31];
 	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
 	CBorrowData(int id = 0,int nReaderId=0,int nBookId=0)
 	{
@@ -275,8 +275,15 @@ public:
 		nBorrowBookId = nBookId;
 		SYSTEMTIME st;
 		GetLocalTime(&st);
-		strBorrowDate.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
-		strBorrowTime.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+		CString Tempa;
+		CString Tempb;
+
+		Tempa.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
+		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+		strcpy_s(strBorrowDate,(LPSTR)(LPCTSTR)Tempa);
+		strcpy_s(strBorrowTime, (LPSTR)(LPCTSTR)Tempb);
+
+
 	}
 
 	virtual ~CBorrowData() {}
