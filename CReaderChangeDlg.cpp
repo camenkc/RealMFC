@@ -34,6 +34,7 @@ void CReaderChangeDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CReaderChangeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CReaderChangeDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CReaderChangeDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -76,4 +77,10 @@ void CReaderChangeDlg::OnBnClickedButton1()
 		}
 	}
 	pReaderDataset->saveAllDataToFile();
+}
+
+void CReaderChangeDlg::OnBnClickedButton2()
+{
+	OnOK();
+	OnClose();
 }

@@ -28,4 +28,5 @@ public:
 	CEdit TobeChangePassword;
 	afx_msg void OnBnClickedButton1();
 	CEdit TobeChangePasswordRepeat;
+	afx_msg void OnBnClickedButton2();
 };

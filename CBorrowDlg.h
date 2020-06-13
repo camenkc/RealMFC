@@ -28,4 +28,5 @@ public:
 	CEdit BorrowBookId;
 	CEdit BorrowBookName;
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
 };

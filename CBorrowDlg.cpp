@@ -34,6 +34,7 @@ void CBorrowDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CBorrowDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CBorrowDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CBorrowDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -84,4 +85,11 @@ void CBorrowDlg::OnBnClickedButton1()
 
 	}
 
+}
+
+
+void CBorrowDlg::OnBnClickedButton2()
+{
+	OnOK();
+	OnClose();
 }

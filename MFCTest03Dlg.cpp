@@ -228,7 +228,8 @@ void CMFCTest03Dlg::OnReaderLogin()
 	CString tmp;
 	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
 	NowReaderCode.SetWindowTextA(tmp);
-	if (NowLoginReader != 0) {
+	if (NowLoginReader != 0) 
+	{
 		//当前有人登录了 那么把菜单中的账号登录disable 把退出enable
 		CMenu* menu=GetMenu();//当前对话框的menu就是要修改的menu
 		CMenu* subMenu = menu->GetSubMenu(1);//第2个Menu栏(用户信息)
@@ -247,20 +248,55 @@ void CMFCTest03Dlg::OnReaderLogin()
 //按下注册按钮
 void CMFCTest03Dlg::OnRegister()
 {
+	if (NowLoginReader != 0)
+	{
+		if (::MessageBox(NULL, CString("注册新账号需退出当前账号，是否退出"), "消息确认...", MB_YESNO | MB_ICONQUESTION) == IDYES)
+		{
+			NowLoginReader = 0;
+			NowReaderCode.SetWindowTextA("0");
+			CMenu* subMenu = GetMenu()->GetSubMenu(1);
+			subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
+			CMenu* subsubMenu = subMenu->GetSubMenu(0);
+			subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
+			subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
+			MessageBox("账号已成功退出","", MB_OK | MB_ICONINFORMATION);
+		}
+	}
 	CReaderRegisterDlg dlg;
 	dlg.DoModal();
+	CString tmp;
+	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
+	NowReaderCode.SetWindowTextA(tmp);
+	if (NowLoginReader != 0)
+	{
+		CMenu* menu = GetMenu();//当前对话框的menu就是要修改的menu
+		CMenu* subMenu = menu->GetSubMenu(1);//第2个Menu栏(用户信息)
+		CMenu* subsubMenu = subMenu->GetSubMenu(0);//的第一个Menu栏
+		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_GRAYED);
+		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
+		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
+	}
 }
 
 
 //按下退出账户按钮
 void CMFCTest03Dlg::OnLogoutClicked()
 {
-	NowLoginReader = 0;
-	NowReaderCode.SetWindowTextA("0");
-	CMenu* subMenu = GetMenu()->GetSubMenu(1);
-	subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
-	CMenu* subsubMenu = subMenu->GetSubMenu(0);
-	subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
-	subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
-	MessageBox("账号已成功退出");
+	CString s;
+	s = "退出账户确认";
+
+	if (::MessageBox(NULL, s, "消息确认...", MB_YESNO | MB_ICONQUESTION) == IDYES)
+	{
+
+
+
+		NowLoginReader = 0;
+		NowReaderCode.SetWindowTextA("0");
+		CMenu* subMenu = GetMenu()->GetSubMenu(1);
+		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
+		CMenu* subsubMenu = subMenu->GetSubMenu(0);
+		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
+		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
+		MessageBox("账号已成功退出", "", MB_OK | MB_ICONINFORMATION);
+	}
 }

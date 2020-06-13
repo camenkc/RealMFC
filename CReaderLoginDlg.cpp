@@ -25,6 +25,7 @@ CReaderLoginDlg::~CReaderLoginDlg()
 void CReaderLoginDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	GetDlgItem(IDC_EDIT1)->SetFocus();
 	DDX_Control(pDX, IDC_EDIT1, ReaderNameEdit);
 	DDX_Control(pDX, IDC_EDIT7, ReaderPasswordEdit);
 }
@@ -44,14 +45,16 @@ void CReaderLoginDlg::OnBnClickedButton1()
 	ReaderNameEdit.GetWindowTextA(s1);
 	ReaderPasswordEdit.GetWindowTextA(s2);
 	int tmp=pReaderDataset->CheckIfHasTheReader(s1, s2);
-	if (tmp) {
-		MessageBox(CString("登录成功\n欢迎你，") + s1);
+	if (tmp) 
+	{
+		MessageBox(_T(CString("登陆成功，欢迎你，")+s1), _T(""), MB_OK | MB_ICONINFORMATION);
 		CMFCTest03Dlg::NowLoginReader = tmp;
 		OnOK();
 		OnClose();
 	}
-	else {
-		MessageBox("未找到此用户");
+	else 
+	{
+		MessageBox(_T(CString("用户不存在或密码错误") + s1), _T(""), MB_OK | MB_ICONINFORMATION);
 	}
 }
 
@@ -60,10 +63,11 @@ BOOL CReaderLoginDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+
 	pReaderDataset = new CReaderDataset;
 	pReaderDataset->readAllData();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
 
@@ -71,9 +75,11 @@ BOOL CReaderLoginDlg::OnInitDialog()
 BOOL CReaderLoginDlg::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->message == WM_KEYDOWN) {
-		//当案件为enter和escape的时候不自动退出
-		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE) {
-			return TRUE;	//返回1表示消息到此为止
+		//当案件为enter时自动登录
+		if (pMsg->wParam == VK_RETURN )
+		{
+			OnBnClickedButton1();
+			return TRUE;
 		}
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
