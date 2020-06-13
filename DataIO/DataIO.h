@@ -257,6 +257,63 @@ public:
 	}
 
 };
+//****************************************************
+//在借记录：
+class CBorrowData :public CDataItem
+{
+public:	
+	int    nBorrowId;
+	int    nBorrowReaderId;
+	int    nBorrowBookId;
+	CString strBorrowDate;
+	CString strBorrowTime;
+	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
+	CBorrowData(int id = 0,int nReaderId=0,int nBookId=0)
+	{
+		nBorrowId = id;
+		nBorrowReaderId = nReaderId;
+		nBorrowBookId = nBookId;
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		strBorrowDate.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
+		strBorrowTime.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+	}
+
+	virtual ~CBorrowData() {}
+public:
+
+	//返回第i个字段的值  借出编码(唯一识别码)、借出的读者识别码、借出的书编号、日期、时间
+	virtual CString operator[](int i)
+	{
+		CString s;
+		switch (i)
+		{
+		case 0:  s.Format("%d", nBorrowId);         break;
+		case 1:  s.Format("%d", nBorrowReaderId);         break;
+		case 2:  s.Format("%d", nBorrowBookId);         break;
+		case 3:  s = strBorrowDate;						break;
+		case 4:  s = strBorrowTime;					break;
+		default: throw CString("CBookData：字段越界");
+		}
+
+		return s;
+	}
+	virtual CString operator[](CString sFieldName)
+	{
+
+		char* aName[5] = { "Id","读者Id","图书Id","日期","时间" };
+
+		int nIndex = 0;
+		for (int i = 0; i < 5; i++) {
+			if (aName[i] == sFieldName)
+			{
+				return (*this)[i];
+			}
+		}
+
+		throw CString("CReaderData\n非法字段名：" + sFieldName);
+	}
+};
 
 
 //图书数据集（若干条记录） 【注意：基类是模板类】
@@ -266,6 +323,9 @@ public:
 
 	virtual ~CBookDataset() {}
 
+	int CheckIfHaveTheBookById(CString Id);
+	CString CheckIfHaveTheBookByName(CString Name);//返回值为CString类型的书籍Id 若没有返回""
+	CString GetBookNameById(CString Id);
 };
 //读者数据集
 class CReaderDataset : public CDataset<CReaderData>
@@ -281,13 +341,10 @@ public:
 	int CheckIfHasTheReader(int Id, CString password);
 	void ChangeNameById(int Id, CString name);
 	void ChangePasswordById(int Id, CString password);
+	
 };
 
 
-//写完借阅历史的类以后把下面的注释取消掉
-//KevinZ 6.8
-
-/*
 //管理借阅历史记录
 class CHistoryDataset : public CDataset<CBookData> {
 public:
@@ -300,14 +357,14 @@ public:
 
 
 //管理在借记录
-class CBorrowDataset : public CDataset<CBookData> {
+class CBorrowDataset : public CDataset<CBorrowData> {
 public:
 	CBorrowDataset();//构造函数 完成 aFields 的初始化
 
 	virtual ~CBorrowDataset() {}
 
 };
-*/
+
 template <class T>
 bool CDataset<T> ::isSelData(T& data, CString sNameField, ESelect eSelect, CString sVal) {
 	const CField& fd = getFieldByName(sNameField);

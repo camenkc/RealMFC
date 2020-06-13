@@ -9,7 +9,8 @@
 class CBorrowDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CBorrowDlg)
-
+	CBookDataset* pBookDataset;
+	CBorrowDataset* pBorrowDataset;
 public:
 	CBorrowDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CBorrowDlg();
@@ -23,4 +24,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CEdit BorrowBookId;
+	CEdit BorrowBookName;
+	afx_msg void OnBnClickedButton1();
 };

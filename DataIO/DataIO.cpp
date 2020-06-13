@@ -350,7 +350,34 @@ CBookDataset :: CBookDataset(){ //构造函数 完成 aFields 的初始化
 	//保存数据的文件：可执行文件路径 + 文件名
 	sFileName = getExePath() + "\\Books.dat";
 }
-
+int CBookDataset::CheckIfHaveTheBookById(CString Id) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(Id) == 0) {
+			return 1;
+		}
+		it++;
+	}return 0;
+}
+//返回值为CString类型的书籍Id 若没有返回""
+CString CBookDataset::CheckIfHaveTheBookByName(CString Name) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[1].Compare(Name) == 0) {
+			return (*it)[0];
+		}
+		it++;
+	}return CString("");
+}
+CString CBookDataset::GetBookNameById(CString Id) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(Id) == 0) {
+			return (*it)[1];
+		}
+		it++;
+	}return CString("");
+}
 //--------------------------------------------------
 /************************************************
    CBookDataset 成员函数 End
@@ -446,9 +473,6 @@ void CReaderDataset::ChangePasswordById(int Id, CString password) {
 //--------------------------------------------------
 
 
-//完善类以后 把下面的注释取消掉
-//KevinZ 6.8
-/*
 
 CHistoryDataset::CHistoryDataset()
 {
@@ -466,8 +490,8 @@ CHistoryDataset::CHistoryDataset()
 
 }CBorrowDataset::CBorrowDataset()
 {
-	EField aType[5] = { eInt, eString, eInt, eString,eString };
-	char* aName[5] = { "Id","读者姓名","借阅图书id","借阅图书名称","借阅日期" };
+	EField aType[5] = { eInt, eInt, eInt, eString,eString };
+	char* aName[5] = { "Id","读者Id","借阅图书id","借阅日期","借阅时间" };
 	CField field;
 	for (int i = 0; i < 5; i++)
 	{
@@ -479,4 +503,3 @@ CHistoryDataset::CHistoryDataset()
 	sFileName = getExePath() + "\\Borrow.dat";
 
 }
-*/
