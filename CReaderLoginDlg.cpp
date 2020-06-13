@@ -80,6 +80,7 @@ BOOL CReaderLoginDlg::PreTranslateMessage(MSG* pMsg)
 		{
 			OnBnClickedButton1();
 			return TRUE;
+
 		}
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
