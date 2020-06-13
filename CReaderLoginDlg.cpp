@@ -54,7 +54,9 @@ void CReaderLoginDlg::OnBnClickedButton1()
 	}
 	else 
 	{
-		MessageBox(_T(CString("用户不存在或密码错误") + s1), _T(""), MB_OK | MB_ICONINFORMATION);
+		MessageBox(_T(CString("用户不存在或密码错误")), _T(""), MB_OK | MB_ICONINFORMATION);
+		GetDlgItem(IDC_EDIT7)->SetWindowTextA("");
+		GetDlgItem(IDC_EDIT1)->SetFocus();
 	}
 }
 

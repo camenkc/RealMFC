@@ -6,7 +6,7 @@
 #include "CReaderRegisterDlg.h"
 #include "afxdialogex.h"
 #include "MFCTest03Dlg.h"
-
+CEdit* pedit;
 
 // CReaderRegisterDlg 对话框
 
@@ -56,18 +56,25 @@ void CReaderRegisterDlg::OnBnClickedButton1()
 	if (s2.IsEmpty()) 
 	{
 		MessageBox(_T(CString("账号名不能为空")), _T(""), MB_OK | MB_ICONINFORMATION);
+		GetDlgItem(IDC_EDIT3)->SetFocus();
 		return;
 	}
 	ReaderPassword.GetWindowTextA(s3);
 	if (s3.IsEmpty()) 
 	{
 		MessageBox(_T(CString("密码不能为空")), _T(""), MB_OK | MB_ICONINFORMATION);
+		GetDlgItem(IDC_EDIT5)->SetFocus();
 		return;
 	}
-	ReaderPassword.GetWindowTextA(ss3);
+	ReaderPasswordRepeat.GetWindowTextA(ss3);
 	if (ss3 != s3) 
 	{
+
 		MessageBox(_T(CString("重复密码与密码不一致")), _T(""), MB_OK | MB_ICONINFORMATION);
+		GetDlgItem(IDC_EDIT6)->SetFocus();
+	
+		pedit = (CEdit*)GetDlgItem(IDC_EDIT6);
+			pedit->SetSel(0,-1);
 		return;
 	}
 	if (maxReadrNum == 1)//表示是第一个创建的读者 用户权限为管理员

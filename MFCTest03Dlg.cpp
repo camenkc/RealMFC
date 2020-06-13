@@ -248,6 +248,8 @@ void CMFCTest03Dlg::OnReaderLogin()
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
 		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
+		
+		DrawMenuBar();
 	}
 }
 
@@ -282,6 +284,8 @@ void CMFCTest03Dlg::OnRegister()
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
 		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
+
+		DrawMenuBar();
 	}
 }
 
