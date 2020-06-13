@@ -186,10 +186,15 @@ void CMFCTest03Dlg::OnMenuExit()
 void CMFCTest03Dlg::OnBookInput()
 {
 	//AfxMessageBox("录入图书信息");
-
-	CBookInDlg dlg;
-	dlg.DoModal();//模态对话框
-
+	if (NowLoginReader == 1)
+	{
+		CBookInDlg dlg;
+		dlg.DoModal();//模态对话框
+	}
+	else
+	{
+		::MessageBox(NULL, CString("您不为管理员！"), CString(""),MB_OK | MB_ICONQUESTION);
+	}
 }
 
 //
@@ -239,9 +244,10 @@ void CMFCTest03Dlg::OnReaderLogin()
 		//参见：
 		///https://blog.csdn.net/Jingle912/article/details/72357145?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase
 		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_GRAYED); 
-		//同时退出账号的按钮Enable了
+		//同时退出账号的按钮和图书借阅Enable了
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
+		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
 	}
 }
 
@@ -275,6 +281,7 @@ void CMFCTest03Dlg::OnRegister()
 		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_GRAYED);
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
+		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
 	}
 }
 
