@@ -217,6 +217,12 @@ public:
 
 	virtual ~CReaderData() {}
 public:
+	void ChangePassword(CString newPassword) {
+		strcpy_s(sKeyword, 31, newPassword.GetBuffer());
+	}
+	void ChangeName(CString newName) {
+		strcpy_s(sReaderName, 31, newName.GetBuffer());
+	}
 	//返回第i个字段的值
 	virtual CString operator[](int i)
 	{
@@ -272,6 +278,9 @@ public:
 	CReaderData* getItemByName(CString name);
 
 	int CheckIfHasTheReader(CString name, CString password);
+	int CheckIfHasTheReader(int Id, CString password);
+	void ChangeNameById(int Id, CString name);
+	void ChangePasswordById(int Id, CString password);
 };
 
 

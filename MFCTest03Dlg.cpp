@@ -240,6 +240,7 @@ void CMFCTest03Dlg::OnReaderLogin()
 		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_GRAYED); 
 		//同时退出账号的按钮Enable了
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_ENABLED);
+		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_ENABLED);
 	}
 }
 
@@ -260,4 +261,6 @@ void CMFCTest03Dlg::OnLogoutClicked()
 	subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
 	CMenu* subsubMenu = subMenu->GetSubMenu(0);
 	subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
+	subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
+	MessageBox("账号已成功退出");
 }

@@ -400,6 +400,43 @@ int CReaderDataset::CheckIfHasTheReader(CString name, CString password) {
 	}
 	return 0;
 }
+int CReaderDataset::CheckIfHasTheReader(int Id, CString password) {
+	vector<CReaderData>::iterator tmp = aData.begin();
+	int now = 1; CString Sid; Sid.Format("%d", Id);
+	while (tmp != aData.end())
+	{
+		if ((*tmp)[0].Compare(Sid) == 0 && (*tmp)[1].Compare(password) == 0) {
+			return now;
+		}
+		now++;
+		tmp++;
+	}
+	return 0;
+}
+void CReaderDataset::ChangeNameById(int Id, CString name) {
+	CString sId;
+	sId.Format("%d", Id);
+	vector<CReaderData>::iterator tmp = aData.begin();
+	while (tmp != aData.end())
+	{
+		if ((*tmp)[0].Compare(sId) == 0) {
+			(*tmp).ChangeName(name);
+		}
+		tmp++;
+	}
+}
+void CReaderDataset::ChangePasswordById(int Id, CString password) {
+	CString sId;
+	sId.Format("%d", Id);
+	vector<CReaderData>::iterator tmp = aData.begin();
+	while (tmp != aData.end())
+	{
+		if ((*tmp)[0].Compare(sId) == 0) {
+			(*tmp).ChangePassword(password);
+		}
+		tmp++;
+	}
+}
 //--------------------------------------------------
 /************************************************
    CReaderDataset ³ÉÔ±º¯Êý End

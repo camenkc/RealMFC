@@ -8,7 +8,7 @@
 class CReaderChangeDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CReaderChangeDlg)
-
+	CReaderDataset* pReaderDataset;
 public:
 	CReaderChangeDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CReaderChangeDlg();
@@ -22,4 +22,10 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CEdit OriginPassword;
+	CEdit TobeChangeName;
+	CEdit TobeChangePassword;
+	afx_msg void OnBnClickedButton1();
+	CEdit TobeChangePasswordRepeat;
 };
