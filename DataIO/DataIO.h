@@ -268,7 +268,7 @@ public:
 	char   strBorrowDate[31];
 	char   strBorrowTime[31];
 	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
-	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0)
+	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0,char * strData="",char * strTime="")
 	{
 		nBorrowId = id;
 		nBorrowReaderId = nReaderId;
@@ -282,8 +282,6 @@ public:
 		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
 		strcpy_s(strBorrowDate, (LPSTR)(LPCTSTR)Tempa);
 		strcpy_s(strBorrowTime, (LPSTR)(LPCTSTR)Tempb);
-
-
 	}
 
 	virtual ~CBorrowData() {}

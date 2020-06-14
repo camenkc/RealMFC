@@ -47,4 +47,7 @@ public:
 	CEdit NowReaderCode;
 
 	afx_msg void OnLogoutClicked();
+	afx_msg void OnReaderView();
+	afx_msg void OnBorrowView();
+	afx_msg void OnHistoryVIewDlg();
 };

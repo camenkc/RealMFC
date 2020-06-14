@@ -13,6 +13,9 @@
 #include "CReaderRegisterDlg.h"
 #include "afxdialogex.h"
 #include"CBookInDlg.h"
+#include "CReaderViewDlg.h"
+#include "CBorrowViewDlg.h"
+#include "CHistoryViewDlg.h"
 #include"CDlgBookView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -82,6 +85,9 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32778, &CMFCTest03Dlg::OnRegister)
 	ON_WM_INITMENUPOPUP()
 	ON_COMMAND(ID_32776, &CMFCTest03Dlg::OnLogoutClicked)
+	ON_COMMAND(ID_32782, &CMFCTest03Dlg::OnReaderView)
+	ON_COMMAND(ID_Menu, &CMFCTest03Dlg::OnBorrowView)
+	ON_COMMAND(ID_32784, &CMFCTest03Dlg::OnHistoryVIewDlg)
 END_MESSAGE_MAP()
 
 
@@ -310,4 +316,25 @@ void CMFCTest03Dlg::OnLogoutClicked()
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
 		MessageBox("账号已成功退出", "", MB_OK | MB_ICONINFORMATION);
 	}
+}
+
+//用来浏览整体的读者信息
+void CMFCTest03Dlg::OnReaderView()
+{
+	CReaderViewDlg dlg;
+	dlg.DoModal();
+}
+
+//用来浏览整体在借记录
+void CMFCTest03Dlg::OnBorrowView()
+{
+	CBorrowViewDlg dlg;
+	dlg.DoModal();
+}
+
+//用来浏览历史记录
+void CMFCTest03Dlg::OnHistoryVIewDlg()
+{
+	CHistoryViewDlg dlg;
+	dlg.DoModal();
 }
