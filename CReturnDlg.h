@@ -9,7 +9,9 @@
 class CReturnDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CReturnDlg)
-
+	CBorrowDataset* pBorrowDataset;
+	CHistoryDataset* pHistoryDataset;
+	CBookDataset* pBookDataset;
 public:
 	CReturnDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CReturnDlg();
@@ -23,4 +25,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CEdit ReturnBookId;
+	CEdit ReturnBookName;
+	afx_msg void OnBnClickedButton2();
 };

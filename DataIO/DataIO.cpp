@@ -141,7 +141,18 @@ int CDataset<T> ::saveAllDataToFile() {
 
 template <class T>
 bool CDataset<T> ::deleteItemByKeyVal(CString sKeyField, int nKeyVal) {
-	//用迭代器 遍历容器 若键值相等 则Erase
+	//用迭代器 遍历容器 若键值相等 则Erase 
+	//考虑到这里仅通过每种记录的唯一标识码进行删除 所以直接取[0]
+	vector<T>::iterator it = aData.begin();
+	CString sKeyVal; sKeyVal.Format("%d", nKeyVal);
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(sKeyVal) == 0) {
+			aData.erase(it);
+			break;
+		}
+		it++;
+	}
+	
 	return 1;
 }
 
@@ -476,10 +487,10 @@ void CReaderDataset::ChangePasswordById(int Id, CString password) {
 
 CHistoryDataset::CHistoryDataset()
 {
-	EField aType[6] = { eInt, eString, eInt, eString,eString,eInt };
-	char* aName[6] = { "Id","读者姓名","借阅图书id","借阅图书名称","借阅日期","借阅类型" };//0为借阅 1为归还
+	EField aType[7] = { eInt, eInt, eInt, eString,eString,eString,eString };
+	char* aName[7] = { "Id","读者Id","图书Id","借出日期","借出时间","归还日期","归还时间" };
 	CField field;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		field.eFieldType = aType[i];
 		field.sFieldName = aName[i];
@@ -488,7 +499,18 @@ CHistoryDataset::CHistoryDataset()
 
 	sFileName = getExePath() + "\\History.dat";
 
-}CBorrowDataset::CBorrowDataset()
+}
+
+
+//--------------------------------------------------
+/************************************************
+   CHistoryDataset 成员函数 End
+
+   CBorrowDataset 成员函数Start
+*************************************************/
+//--------------------------------------------------
+
+CBorrowDataset::CBorrowDataset()
 {
 	EField aType[5] = { eInt, eInt, eInt, eString,eString };
 	char* aName[5] = { "Id","读者Id","借阅图书id","借阅日期","借阅时间" };
@@ -502,4 +524,15 @@ CHistoryDataset::CHistoryDataset()
 
 	sFileName = getExePath() + "\\Borrow.dat";
 
+}
+
+CString CBorrowDataset::CheckIfHasBorrowData(CString BookId, CString ReaderId) {
+	vector<CBorrowData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[2].Compare(BookId) == 0 && (*it)[1].Compare(ReaderId) == 0) {
+			return (*it)[0];
+		}
+		it++;
+	}
+	return "";
 }

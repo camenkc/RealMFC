@@ -261,14 +261,14 @@ public:
 //在借记录：
 class CBorrowData :public CDataItem
 {
-public:	
+public:
 	int    nBorrowId;
 	int    nBorrowReaderId;
 	int    nBorrowBookId;
 	char   strBorrowDate[31];
 	char   strBorrowTime[31];
 	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
-	CBorrowData(int id = 0,int nReaderId=0,int nBookId=0)
+	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0)
 	{
 		nBorrowId = id;
 		nBorrowReaderId = nReaderId;
@@ -280,7 +280,7 @@ public:
 
 		Tempa.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
 		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
-		strcpy_s(strBorrowDate,(LPSTR)(LPCTSTR)Tempa);
+		strcpy_s(strBorrowDate, (LPSTR)(LPCTSTR)Tempa);
 		strcpy_s(strBorrowTime, (LPSTR)(LPCTSTR)Tempb);
 
 
@@ -310,7 +310,7 @@ public:
 
 		char* aName[5] = { "Id","读者Id","图书Id","日期","时间" };
 
-		int nIndex = 0;
+
 		for (int i = 0; i < 5; i++) {
 			if (aName[i] == sFieldName)
 			{
@@ -318,7 +318,80 @@ public:
 			}
 		}
 
-		throw CString("CReaderData\n非法字段名：" + sFieldName);
+		throw CString("CBorrowData\n非法字段名：" + sFieldName);
+	}
+};
+
+
+//****************************************************
+//历史记录：历史记录编号、借出人编号、借出书编号、借出日期、时间、归还日期、时间
+class CHistoryData :public CDataItem
+{
+public:
+	int    nHistoryId;
+	int    nBorrowReaderId;
+	int    nBorrowBookId;
+	char   strBorrowDate[31];
+	char   strBorrowTime[31];
+	char   strReturnDate[31];
+	char   strReturnTime[31];
+	CHistoryData(int id = 0, int nReaderId = 0, int nBookId = 0,char * BorrowDate="",char * BorrowTime="")
+	{
+		nHistoryId = id;
+		nBorrowReaderId = nReaderId;
+		nBorrowBookId = nBookId;
+		
+		strcpy_s(strBorrowDate, 31, BorrowDate);
+		strcpy_s(strBorrowTime, 31, BorrowTime);
+		
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		CString Tempa;
+		CString Tempb;
+
+		Tempa.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
+		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+		strcpy_s(strReturnDate, (LPSTR)(LPCTSTR)Tempa);
+		strcpy_s(strReturnTime, (LPSTR)(LPCTSTR)Tempb);
+
+
+	}
+
+	virtual ~CHistoryData() {}
+public:
+
+	//返回第i个字段的值  历史记录编号、借出人编号、借出书编号、借出日期、时间、归还日期、时间
+	virtual CString operator[](int i)
+	{
+		CString s;
+		switch (i)
+		{
+		case 0:  s.Format("%d", nHistoryId);         break;
+		case 1:  s.Format("%d", nBorrowReaderId);         break;
+		case 2:  s.Format("%d", nBorrowBookId);         break;
+		case 3:  s = strBorrowDate;						break;
+		case 4:  s = strBorrowTime;					break;
+		case 5:  s = strReturnDate;						break;
+		case 6:  s = strReturnTime;					break;
+		default: throw CString("CBookData：字段越界");
+		}
+
+		return s;
+	}
+	virtual CString operator[](CString sFieldName)
+	{
+
+		char* aName[7] = { "Id","读者Id","图书Id","借出日期","借出时间","归还日期","归还时间" };
+
+		int nIndex = 0;
+		for (int i = 0; i < 7; i++) {
+			if (aName[i] == sFieldName)
+			{
+				return (*this)[i];
+			}
+		}
+
+		throw CString("CHistoryData\n非法字段名：" + sFieldName);
 	}
 };
 
@@ -353,11 +426,12 @@ public:
 
 
 //管理借阅历史记录
-class CHistoryDataset : public CDataset<CBookData> {
+class CHistoryDataset : public CDataset<CHistoryData> {
 public:
 	CHistoryDataset();//构造函数 完成 aFields 的初始化
 
 	virtual ~CHistoryDataset() {}
+
 
 };
 
@@ -370,6 +444,7 @@ public:
 
 	virtual ~CBorrowDataset() {}
 
+	CString CheckIfHasBorrowData(CString BorrowId, CString ReaderId);
 };
 
 template <class T>
