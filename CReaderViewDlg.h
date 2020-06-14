@@ -24,6 +24,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CListCtrl ReaderList;
+	//CListCtrl ReaderList;
+	CMyCListCtrl ReaderList;
 	virtual BOOL OnInitDialog();
 };

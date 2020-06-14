@@ -23,6 +23,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CListCtrl HistoryList;
+	//CListCtrl HistoryList;
+	CMyCListCtrl HistoryList;
 	virtual BOOL OnInitDialog();
 };

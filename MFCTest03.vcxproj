@@ -185,10 +185,13 @@
   <ItemGroup>
     <ClInclude Include="CBookInDlg.h" />
     <ClInclude Include="CBorrowDlg.h" />
+    <ClInclude Include="CBorrowViewDlg.h" />
     <ClInclude Include="CDlgBookView.h" />
+    <ClInclude Include="CHistoryViewDlg.h" />
     <ClInclude Include="CReaderChangeDlg.h" />
     <ClInclude Include="CReaderLoginDlg.h" />
     <ClInclude Include="CReaderRegisterDlg.h" />
+    <ClInclude Include="CReaderViewDlg.h" />
     <ClInclude Include="CReturnDlg.h" />
     <ClInclude Include="DataIO\DataIO.h" />
     <ClInclude Include="framework.h" />
@@ -202,10 +205,13 @@
   <ItemGroup>
     <ClCompile Include="CBookInDlg.cpp" />
     <ClCompile Include="CBorrowDlg.cpp" />
+    <ClCompile Include="CBorrowViewDlg.cpp" />
     <ClCompile Include="CDlgBookView.cpp" />
+    <ClCompile Include="CHistoryViewDlg.cpp" />
     <ClCompile Include="CReaderChangeDlg.cpp" />
     <ClCompile Include="CReaderLoginDlg.cpp" />
     <ClCompile Include="CReaderRegisterDlg.cpp" />
+    <ClCompile Include="CReaderViewDlg.cpp" />
     <ClCompile Include="CReturnDlg.cpp" />
     <ClCompile Include="DataIO\DataIO.cpp" />
     <ClCompile Include="MFCTest03.cpp" />

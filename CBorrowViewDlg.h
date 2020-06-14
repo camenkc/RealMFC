@@ -23,6 +23,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CListCtrl BorrowList;
+	//CListCtrl BorrowList;
+	CMyCListCtrl BorrowList;
 	virtual BOOL OnInitDialog();
 };

@@ -198,9 +198,28 @@ void CDlgBookView::OnBnClickedButton2()
 		else if (sFieldForSort == "书名" && sSortType == "升序") {
 			m_pBookDataset->dataOrder(CBookData::compByNameAsc);
 		}
-		else {
-			throw CString("没对应的比较函数");
+		else if (sFieldForSort == "书名" && sSortType == "降序") {
+			m_pBookDataset->dataOrder(CBookData::compByNameDec);
 		}
+		else if (sFieldForSort == "作者" && sSortType == "升序") {
+			m_pBookDataset->dataOrder(CBookData::compByAuthorAsc);
+		}
+		else if (sFieldForSort == "作者" && sSortType == "降序") {
+			m_pBookDataset->dataOrder(CBookData::compByAuthorDec);
+		}
+		else if (sFieldForSort == "出版社" && sSortType == "升序") {
+			m_pBookDataset->dataOrder(CBookData::compByPubHouseAsc);
+		}
+		else if (sFieldForSort == "出版社" && sSortType == "降序") {
+			m_pBookDataset->dataOrder(CBookData::compByPubHouseDec);
+		}
+		else if (sFieldForSort == "单价" && sSortType == "升序") {
+			m_pBookDataset->dataOrder(CBookData::compByPriceAsc);
+		}
+		else if (sFieldForSort == "单价" && sSortType == "降序") {
+			m_pBookDataset->dataOrder(CBookData::compByPriceDec);
+		}
+
 
 		m_pBookDataset->dataToListCtrl(&list);
 

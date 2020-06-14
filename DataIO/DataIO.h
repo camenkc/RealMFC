@@ -189,9 +189,38 @@ public:
 	static bool compByIdDec(const CBookData& b1, const CBookData& b2) {
 		return b1.nBookId > b2.nBookId; //降序
 	}
+	static bool compByPriceAsc(const CBookData& b1, const CBookData& b2) {
+		return b1.fPrice < b2.fPrice; //升序
+	}
+	static bool compByPriceDec(const CBookData& b1, const CBookData& b2) {
+		return b1.fPrice > b2.fPrice; //降序
+	}
 	static bool compByNameAsc(const CBookData& b1, const CBookData& b2) {
 		return strcmp(b1.sBookname, b2.sBookname) < 0; //升序
 	}
+	static bool compByNameDec(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sBookname, b2.sBookname) > 0; //降序
+	}
+	static bool compByBookNoAsc(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sBookNo, b2.sBookNo) < 0; //升序
+	}
+	static bool compByBookNoDec(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sBookNo, b2.sBookNo) > 0; //降序
+	}
+	static bool compByAuthorAsc(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sAuthor, b2.sAuthor) < 0; //升序
+	}
+	static bool compByAuthorDec(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sAuthor, b2.sAuthor) > 0; //降序
+	}
+	static bool compByPubHouseAsc(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sPubHouse, b2.sPubHouse) < 0; //升序
+	}
+	static bool compByPubHouseDec(const CBookData& b1, const CBookData& b2) {
+		return strcmp(b1.sPubHouse, b2.sPubHouse) > 0; //降序
+	}
+
+
 	//...............
 };
 /**************************************************/
@@ -450,7 +479,7 @@ bool CDataset<T> ::isSelData(T& data, CString sNameField, ESelect eSelect, CStri
 	const CField& fd = getFieldByName(sNameField);
 
 	switch (eSelect) {
-	case eEqual:
+	case eEqual:	
 		if (fd.eFieldType == eInt) {
 			return atoi(data[sNameField]) == atoi(sVal);
 		}
@@ -463,25 +492,50 @@ bool CDataset<T> ::isSelData(T& data, CString sNameField, ESelect eSelect, CStri
 		break;
 	case eGreater:
 		if (fd.eFieldType == eInt) {
-			return atoi(data[sNameField]) >= atoi(sVal);
+			return atoi(data[sNameField]) > atoi(sVal);
 		}
 		else if (fd.eFieldType == eDouble) {
-			return atof(data[sNameField]) >= atof(sVal);
+			return atof(data[sNameField]) > atof(sVal);
 		}
 		else {//日期 目前 也当成 字串处理
 			return strcmp(data[sNameField], sVal.GetBuffer()) > 0;
 		}
 		break;
 	case eLess:
-		throw CString(" CDataset<T> :: isSelData 自己写");
+		if (fd.eFieldType == eInt) {
+			return atoi(data[sNameField]) < atoi(sVal);
+		}
+		else if (fd.eFieldType == eDouble) {
+			return atof(data[sNameField]) < atof(sVal);
+		}
+		else {//日期 目前 也当成 字串处理
+			return strcmp(data[sNameField], sVal.GetBuffer()) < 0;
+		}
 		break;
 	case eGreaterOrEqual:
-		throw CString(" CDataset<T> :: isSelData 自己写");
+		if (fd.eFieldType == eInt) {
+			return atoi(data[sNameField]) >= atoi(sVal);
+		}
+		else if (fd.eFieldType == eDouble) {
+			return atof(data[sNameField]) >= atof(sVal);
+		}
+		else {//日期 目前 也当成 字串处理
+			return strcmp(data[sNameField], sVal.GetBuffer()) >= 0;
+		}
 		break;
 	case eLessOrEqual:
-		throw CString(" CDataset<T> :: isSelData 自己写");
+		if (fd.eFieldType == eInt) {
+			return atoi(data[sNameField]) <= atoi(sVal);
+		}
+		else if (fd.eFieldType == eDouble) {
+			return atof(data[sNameField]) <= atof(sVal);
+		}
+		else {//日期 目前 也当成 字串处理
+			return strcmp(data[sNameField], sVal.GetBuffer()) <= 0;
+		}
 		break;
 	}
+
 }
 
 
