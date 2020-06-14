@@ -307,8 +307,8 @@ public:
 		CString Tempa;
 		CString Tempb;
 
-		Tempa.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
-		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+		Tempa.Format("%d-%d-%d", st.wYear, st.wMonth, st.wDay);
+		Tempb.Format("%d:%d:%d", st.wHour, st.wMinute, st.wSecond);
 		strcpy_s(strBorrowDate, (LPSTR)(LPCTSTR)Tempa);
 		strcpy_s(strBorrowTime, (LPSTR)(LPCTSTR)Tempb);
 	}
@@ -376,8 +376,8 @@ public:
 		CString Tempa;
 		CString Tempb;
 
-		Tempa.Format("%4d-%2d-%2d", st.wYear, st.wMonth, st.wDay);
-		Tempb.Format("%2d:%2d:%2d", st.wHour, st.wMinute, st.wSecond);
+		Tempa.Format("%d-%d-%d", st.wYear, st.wMonth, st.wDay);
+		Tempb.Format("%d:%d:%d", st.wHour, st.wMinute, st.wSecond);
 		strcpy_s(strReturnDate, (LPSTR)(LPCTSTR)Tempa);
 		strcpy_s(strReturnTime, (LPSTR)(LPCTSTR)Tempb);
 

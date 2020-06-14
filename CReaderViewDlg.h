@@ -27,4 +27,8 @@ public:
 	//CListCtrl ReaderList;
 	CMyCListCtrl ReaderList;
 	virtual BOOL OnInitDialog();
+	CComboBox CmbForReader;
+	CEdit TargetReaderEdit;
+	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedButton1();
 };

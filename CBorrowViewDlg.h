@@ -26,4 +26,8 @@ public:
 	//CListCtrl BorrowList;
 	CMyCListCtrl BorrowList;
 	virtual BOOL OnInitDialog();
+	CEdit TargetBorrowEdit;
+	CComboBox CmbForBorrow;
+	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedButton1();
 };

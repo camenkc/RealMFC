@@ -513,7 +513,7 @@ CHistoryDataset::CHistoryDataset()
 CBorrowDataset::CBorrowDataset()
 {
 	EField aType[5] = { eInt, eInt, eInt, eString,eString };
-	char* aName[5] = { "Id","读者Id","借阅图书id","借阅日期","借阅时间" };
+	char* aName[5] = { "Id","读者Id","图书Id","日期","时间" };
 	CField field;
 	for (int i = 0; i < 5; i++)
 	{
