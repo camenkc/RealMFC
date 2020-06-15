@@ -25,10 +25,16 @@ void CHistoryViewDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, HistoryList);
+	DDX_Control(pDX, IDC_EDIT1, TargetHistoryEdit);
+	DDX_Control(pDX, IDC_COMBO1, CmbForHistory);
+
 }
 
 
 BEGIN_MESSAGE_MAP(CHistoryViewDlg, CDialogEx)
+	
+	ON_BN_CLICKED(IDC_BUTTON2, &CHistoryViewDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON1, &CHistoryViewDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -45,4 +51,48 @@ BOOL CHistoryViewDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
+}
+
+
+
+void CHistoryViewDlg::OnBnClickedButton2()
+{
+	pHistoryDataset->dataToListCtrl(&HistoryList);
+}
+
+
+void CHistoryViewDlg::OnBnClickedButton1()
+{
+	CHistoryData tmp;
+	//借阅历史编号; 借出书籍编号; 借出读者编号; 借出日期;归还日期
+	int index = CmbForHistory.GetCurSel();
+	CString sField;
+	CString sVal;
+	TargetHistoryEdit.GetWindowTextA(sVal);
+	if (index == 0) 
+	{
+		sField = "Id";
+	}
+	else if (index == 1) 
+	{
+		sField = "图书Id";
+	}
+	else if (index == 2) 
+	{
+		sField = "读者Id";
+	}
+	else if (index == 3) 
+	{
+		sField = "借出日期";
+	}
+	else if (index == 4)
+	{
+		sField = "归还日期";
+	}
+
+	vector<CHistoryData> tepHistoryDataset;
+
+	pHistoryDataset->selectData(tepHistoryDataset, sField, eEqual, sVal);
+
+	pHistoryDataset->dataToListCtrl(&HistoryList, &tepHistoryDataset);
 }
