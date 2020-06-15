@@ -102,6 +102,8 @@ public:
 	//清除列表控件 pListCtrl 里显示的数据
 	static void clearCListCtrl(CListCtrl* pListCtrl);
 
+	//清除列表控件pListCtrl制定列的数据
+	static void clearByCol(CListCtrl* pListCtrl, int col);
 	//获得EXE所在位置
 	static CString getExePath();
 };
@@ -443,12 +445,13 @@ public:
 	virtual ~CReaderDataset() {}
 
 	CReaderData* getItemByName(CString name);
-
+	
+    int getClassById(int n);
 	int CheckIfHasTheReader(CString name, CString password);
 	int CheckIfHasTheReader(int Id, CString password);
 	void ChangeNameById(int Id, CString name);
 	void ChangePasswordById(int Id, CString password);
-	
+
 };
 
 
