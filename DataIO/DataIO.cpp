@@ -2,7 +2,6 @@
 #include "DataIO.h"
 #include "../MyControls/MyControls.h"
 
-
 //--------------------------------------------------
 /************************************************
    CDataset 成员函数 Start
@@ -245,6 +244,7 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData){
 	pListCtrl->InvalidateRect(NULL, FALSE);
 }
 
+
 //填写表头
 template <class T>
 void CDataset<T> :: doListHeader(CListCtrl *pListCtrl){
@@ -267,6 +267,7 @@ void CDataset<T> :: doListHeader(CListCtrl *pListCtrl){
 	
 	}
 }
+
 
 //-------------------------------------------------------
 /////////////////////静态成员函数
@@ -322,6 +323,13 @@ void CDataset<T> :: clearCListCtrl(CListCtrl *pListCtrl){
 	for (int i = 0;i < nColumnCount; i++) {
 		pListCtrl->DeleteColumn(0);
 	}
+}
+
+//清除列表控件制定列的数据
+template<class T>
+void CDataset<T>::clearByCol(CListCtrl* pListCtrl, int col)
+{
+	pListCtrl->DeleteColumn(col);
 }
 
 //获得EXE所在位置
@@ -422,6 +430,20 @@ CReaderData* CReaderDataset::getItemByName(CString name) {
 			return &(*tmp);
 		}
 		tmp++;
+	}
+	return NULL;
+}
+
+int  CReaderDataset::getClassById(int n)
+{
+	vector<CReaderData>::iterator temp = aData.begin();
+	while (temp!=aData.end())
+	{
+		if ((*temp)[0] == n)
+		{
+			return (*temp).nClass;
+		}
+		temp++;
 	}
 	return NULL;
 }

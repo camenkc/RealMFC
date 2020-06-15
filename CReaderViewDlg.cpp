@@ -5,6 +5,7 @@
 #include "MFCTest03.h"
 #include "CReaderViewDlg.h"
 #include "afxdialogex.h"
+#include "MFCTest03Dlg.h"
 
 
 // CReaderViewDlg 对话框
@@ -46,6 +47,19 @@ BOOL CReaderViewDlg::OnInitDialog()
 	pReaderDataset->readAllData();
 	
 	pReaderDataset->dataToListCtrl(&ReaderList);
+
+	const int loginreader = CMFCTest03Dlg::NowLoginReader;
+	
+
+	if (pReaderDataset->getClassById(loginreader))
+	{
+		pReaderDataset->clearByCol(&ReaderList, 1);
+	}
+	else
+	{
+		return TRUE;
+	}
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
