@@ -146,7 +146,7 @@ bool CDataset<T> ::deleteItemByKeyVal(CString sKeyField, int nKeyVal) {
 	vector<T>::iterator it = aData.begin();
 	CString sKeyVal; sKeyVal.Format("%d", nKeyVal);
 	while (it != aData.end()) {
-		if ((*it)[0].Compare(sKeyVal) == 0) {
+		if ((*it)[sKeyField].Compare(sKeyVal) == 0) {
 			aData.erase(it);
 			break;
 		}
