@@ -104,6 +104,7 @@ public:
 
 	//清除列表控件pListCtrl制定列的数据
 	static void clearByCol(CListCtrl* pListCtrl, int col);
+
 	//获得EXE所在位置
 	static CString getExePath();
 };
