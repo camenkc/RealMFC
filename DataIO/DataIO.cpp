@@ -360,11 +360,11 @@ CString CDataset<T> :: getExePath(){
 //--------------------------------------------------
 CBookDataset :: CBookDataset(){ //构造函数 完成 aFields 的初始化
 	//务必与CBookData数成员类型对应
-	EField aType[6] = {eInt, eString, eString, eString, eString, eDouble};
-	char *aName[6] = {"Id","书名","书号","作者","出版社","单价"};
+	EField aType[7] = {eInt, eString, eString, eString, eString, eDouble,eString};
+	char *aName[7] = {"Id","书名","书号","作者","出版社","单价","库存"};
 	 
 	CField field;
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 7; i++){
 		field.eFieldType = aType[i];
 		field.sFieldName = aName[i];
 		aFields.push_back(field);

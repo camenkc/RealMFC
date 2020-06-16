@@ -11,7 +11,7 @@
 IMPLEMENT_DYNAMIC(CBookInDlg, CDialogEx)
 
 CBookInDlg::CBookInDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_BOOKINPUT, pParent)
+	: CDialogEx(IDD_DIALOGBOOKINT, pParent)
 {
 	m_pBookDataset = NULL;
 }
@@ -59,10 +59,10 @@ void CBookInDlg::OnBnClickedButton3()
 
 //清楚EditText编辑框 文字
 void CBookInDlg::ClearEditText() {
-	char* aName[6] = { "Id","书名","书号","作者","出版社","单价" };
-	UINT aId[6] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6 };
+	char* aName[7] = { "Id","书名","书号","作者","出版社","单价","库存" };
+	UINT aId[7] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6,IDC_EDIT8 };
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		if (GetDlgItem(aId[i]) == NULL) {
 			AfxMessageBox(aName[i] + (CString)" 对象的文本框不存在");
 			return;
@@ -93,12 +93,12 @@ void CBookInDlg::OnBnClickedButton1()
 	if (m_pBookDataset == NULL) return;
 	try
 	{
-		char* aName[6] = { "Id","书名","书号","作者","出版社","单价" };
-		UINT aId[6] = {IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6};
+		char* aName[7] = { "Id","书名","书号","作者","出版社","单价","库存" };
+		UINT aId[7] = {IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6,IDC_EDIT8 };
 		//应该验证输入合法性
 		vector <CString> aStr;
 		CString s;
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (GetDlgItem(aId[i]) == NULL) { throw CString(aName[i] + (CString)" 对象文本不存在"); }
 			
 			GetDlgItem(aId[i])->GetWindowTextA(s);
@@ -115,8 +115,8 @@ void CBookInDlg::OnBnClickedButton1()
 			aStr.push_back(s);
 		}
 
-		if (aStr.size() != 6) {
-			throw CString("aStr.size() != 6");
+		if (aStr.size() != 7) {
+			throw CString("aStr.size() != 7");
 		}
 		CBookData bookData(
 			atoi(aStr[0]),
@@ -124,7 +124,8 @@ void CBookInDlg::OnBnClickedButton1()
 			aStr[2].GetBuffer(),
 			aStr[3].GetBuffer(),
 			aStr[4].GetBuffer(),
-			atof(aStr[5])
+			atof(aStr[5]),
+			atoi(aStr[6])
 			);
 	
 
@@ -175,7 +176,7 @@ BOOL CBookInDlg::OnInitDialog()
 	//第二列 文本为蓝色
 	listBook.SetColTextColor(1, RGB(0, 0, 255));
 	//第2列 第3行 
-	listBook.SetItemTextColor(1,2, RGB(0, 255, 0));
+
 
 	m_pBookDataset = new CBookDataset;
 
@@ -184,6 +185,7 @@ BOOL CBookInDlg::OnInitDialog()
 		m_pBookDataset->readAllData();
 		m_pBookDataset->dataOrder(CBookData::compByIdDec);
 		m_pBookDataset->dataToListCtrl(&listBook);
+
 
 		ClearEditText();//主要是用来设定书号
 	}
@@ -222,7 +224,7 @@ void CBookInDlg::OnNMDblclkList2(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 
 	CWnd* pWnd;
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		pWnd = GetDlgItem(aId[i]);
 		if (pWnd) {
 			pWnd->SetWindowTextA(listBook.GetItemText(nRowSel, i));

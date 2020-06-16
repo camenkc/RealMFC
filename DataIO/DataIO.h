@@ -136,8 +136,8 @@ public:
 	char   sAuthor[11];
 	char   sPubHouse[31];
 	double fPrice; //图书单价
-
-	CBookData(int id = 0, char* name = "", char* no = "", char* auth = "", char* pub = "", double price = 0) {
+	int    nLeft;//库存
+	CBookData(int id = 0, char* name = "", char* no = "", char* auth = "", char* pub = "", double price = 0,int left=0) {
 		strcpy_s(sBookname, 31, name);
 		strcpy_s(sBookNo, 31, no);
 		strcpy_s(sAuthor, 11, auth);
@@ -145,6 +145,7 @@ public:
 
 		nBookId = id;
 		fPrice = price;
+		nLeft = left;
 	}
 
 	virtual ~CBookData() {}
@@ -157,6 +158,7 @@ public:
 		switch (i) {
 		case 0:  s.Format("%d", nBookId);   break;
 		case 5:  s.Format("%.2f", fPrice);  break;
+		case 6:  s.Format("%d", nLeft);		break;
 		case 1:  s = sBookname;             break;
 		case 2:  s = sBookNo;               break;
 		case 3:  s = sAuthor;               break;
@@ -170,10 +172,10 @@ public:
 	//返回字段sFieldName的值
 	virtual CString operator[](CString sFieldName) {
 		//此处必须和CBookDataset构造函数里保持一致
-		char* aName[6] = { "Id","书名","书号","作者","出版社","单价" };
+		char* aName[7] = { "Id","书名","书号","作者","出版社","单价","库存" };
 
 		int nIndex = 0;
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (aName[i] == sFieldName) {
 				return (*this)[i];
 			}
@@ -221,6 +223,12 @@ public:
 	}
 	static bool compByPubHouseDec(const CBookData& b1, const CBookData& b2) {
 		return strcmp(b1.sPubHouse, b2.sPubHouse) > 0; //降序
+	}
+	static bool compByPubLeftAsc(const CBookData& b1, const CBookData& b2) {
+		return b1.nLeft < b2.nLeft; //升序
+	}
+	static bool compByPubLeftDec(const CBookData& b1, const CBookData& b2) {
+		return  b1.nLeft > b2.nLeft;  //降序
 	}
 
 

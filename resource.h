@@ -40,6 +40,7 @@
 #define IDC_COMBO4                      1011
 #define IDC_EDIT6                       1012
 #define IDC_LIST1                       1012
+#define IDC_EDIT8                       1014
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -60,9 +61,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        164
+#define _APS_NEXT_RESOURCE_VALUE        165
 #define _APS_NEXT_COMMAND_VALUE         32785
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
