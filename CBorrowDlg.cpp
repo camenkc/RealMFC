@@ -58,15 +58,18 @@ void CBorrowDlg::OnBnClickedButton1()
 			CBorrowData *addData= new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId);
 			pBorrowDataset->saveOneItemToFile(addData);
 			delete addData;
-			MessageBox(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1));
+			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
+	
 		}
 		else {
-			MessageBox("此图书不存在或已删除");
+			MessageBox(_T(CString("此图书不存在或已删除")), _T(""), MB_OK | MB_ICONINFORMATION);
+			
 		}
 	}
 	else {
 		if (s2.IsEmpty()) {
-			MessageBox("错误，未指定图书");
+			MessageBox(_T(CString("错误，未指定图书")), _T(""), MB_OK | MB_ICONINFORMATION);
+			
 			return;
 		}
 		CString tmp = pBookDataset->CheckIfHaveTheBookByName(s2);
@@ -79,7 +82,8 @@ void CBorrowDlg::OnBnClickedButton1()
 			CBorrowData* addData = new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId);
 			pBorrowDataset->saveOneItemToFile(addData);
 			delete addData; 
-			MessageBox(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1));
+			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
+		
 
 		}
 

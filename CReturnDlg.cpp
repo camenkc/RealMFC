@@ -59,7 +59,8 @@ void CReturnDlg::OnBnClickedButton2()
 
 	if (s1.IsEmpty()) {
 		if (s2.IsEmpty()) {
-			MessageBox("请输入图书编号或者图书名称"); return;
+			MessageBox(_T(CString("请输入图书编号或者图书名称")), _T(""), MB_OK | MB_ICONINFORMATION);
+		
 		}
 		else {
 			CString BookId = pBookDataset->CheckIfHaveTheBookByName(s2);
@@ -67,7 +68,7 @@ void CReturnDlg::OnBnClickedButton2()
 				s1 = BookId;
 			}
 			else {
-				MessageBox("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除"); return;
+				MessageBox(_T(CString("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
 			}
 		}
 	}
@@ -90,10 +91,11 @@ void CReturnDlg::OnBnClickedButton2()
 		//从BorrowDataset中删除tmp编号
 		pBorrowDataset->deleteItemByKeyVal("Id", nBorrowId);
 		pBorrowDataset->saveAllDataToFile();
-		MessageBox("已归还");
+		MessageBox(_T(CString("已归还")), _T(""), MB_OK | MB_ICONINFORMATION);
+	
 	}
 	else {
-		MessageBox("您没有借出此本书");
+		MessageBox(_T(CString("您没有借出此本书")), _T(""), MB_OK | MB_ICONINFORMATION);
 		return;
 	}
 

@@ -71,7 +71,7 @@ void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 
 	DDX_Control(pDX, IDC_EDIT2, NowReaderCode);
-	NowReaderCode.SetWindowTextA(CString("未登录"));
+	
 	
 }
 
@@ -125,6 +125,10 @@ BOOL CMFCTest03Dlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
+
+
+	NowReaderCode.SetWindowTextA(CString("未登录"));
+
 
 	// 设置此对话框的图标。  当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
