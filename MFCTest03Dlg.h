@@ -47,6 +47,7 @@ public:
 public:
 	static int NowLoginReader;//静态成员 表示当前登录的人的标识码 0为未登录 
 							//这样在全局都可以设置这个变量
+	static int MayBeReturnBookId;
 	CEdit NowReaderCode;
 	CReaderDataset* pReaderDataset;
 
@@ -54,5 +55,6 @@ public:
 	afx_msg void OnReaderView();
 	afx_msg void OnBorrowView();
 	afx_msg void OnHistoryVIewDlg();
-	CListCtrl MainBorrowList;
+	CMyCListCtrl MainBorrowList;
+	afx_msg void OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 };

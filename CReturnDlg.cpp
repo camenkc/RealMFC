@@ -109,3 +109,18 @@ void CReturnDlg::OnBnClickedButton1()
 	OnOK();
 	OnClose();
 }
+
+
+BOOL CReturnDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  在此添加额外的初始化
+	if (CMFCTest03Dlg::MayBeReturnBookId != 0) {
+		CString tmp; tmp.Format("%d", CMFCTest03Dlg::MayBeReturnBookId);
+		ReturnBookId.SetWindowTextA(tmp);
+	}
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 异常: OCX 属性页应返回 FALSE
+}

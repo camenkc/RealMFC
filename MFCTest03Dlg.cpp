@@ -94,6 +94,7 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32782, &CMFCTest03Dlg::OnReaderView)
 	ON_COMMAND(ID_Menu, &CMFCTest03Dlg::OnBorrowView)
 	ON_COMMAND(ID_32784, &CMFCTest03Dlg::OnHistoryVIewDlg)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CMFCTest03Dlg::OnNMDblclkList1)
 END_MESSAGE_MAP()
 
 
@@ -217,6 +218,7 @@ void CMFCTest03Dlg::OnBookInput()
 	{
 		::MessageBox(NULL, CString("您不为管理员！"), CString(""),MB_OK | MB_ICONQUESTION);
 	}
+	RefreshMainDlg();
 }
 
 //
@@ -224,6 +226,7 @@ void CMFCTest03Dlg::OnViewBook()
 {
 	CDlgBookView dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //按下借阅图书的按钮
@@ -231,6 +234,7 @@ void CMFCTest03Dlg::OnBorrowBook()
 {
 	CBorrowDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //按下归还图书的按钮
@@ -238,6 +242,7 @@ void CMFCTest03Dlg::OnReturnBook()
 {
 	CReturnDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //按下修改读者信息按钮
@@ -245,6 +250,7 @@ void CMFCTest03Dlg::OnReaderChange()
 {
 	CReaderChangeDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //按下登录按钮
@@ -322,6 +328,7 @@ void CMFCTest03Dlg::OnRegister()
 
 		DrawMenuBar();
 	}
+	RefreshMainDlg();
 }
 
 //刷新主对话框的CtrlList 
@@ -355,6 +362,7 @@ void CMFCTest03Dlg::OnLogoutClicked()
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
 		MessageBox("账号已成功退出", "", MB_OK | MB_ICONINFORMATION);
 	}
+	RefreshMainDlg();
 }
 
 //用来浏览整体的读者信息
@@ -362,6 +370,7 @@ void CMFCTest03Dlg::OnReaderView()
 {
 	CReaderViewDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //用来浏览整体在借记录
@@ -369,6 +378,7 @@ void CMFCTest03Dlg::OnBorrowView()
 {
 	CBorrowViewDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
 }
 
 //用来浏览历史记录
@@ -376,4 +386,28 @@ void CMFCTest03Dlg::OnHistoryVIewDlg()
 {
 	CHistoryViewDlg dlg;
 	dlg.DoModal();
+	RefreshMainDlg();
+}
+
+
+void CMFCTest03Dlg::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+
+	int nRowSel = MainBorrowList.GetNextItem(-1, LVNI_SELECTED);
+	
+	if (nRowSel < 0) {
+		return;
+	}
+
+	MayBeReturnBookId=atoi(MainBorrowList.GetItemText(nRowSel, 2));
+
+	CReturnDlg dlg;
+	dlg.DoModal();
+
+	MayBeReturnBookId = 0;
+
+	*pResult = 0;
+	
+	RefreshMainDlg();
 }
