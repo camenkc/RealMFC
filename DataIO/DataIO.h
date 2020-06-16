@@ -158,6 +158,9 @@ public:
 	void IncBookNum() {
 		nLeft++;
 	}
+	bool HasBookLeft() {
+		if (nLeft==0) return false; return true;
+	}
 	//返回第i个字段的值
 	virtual CString operator[](int i) {
 		CString s;
@@ -459,6 +462,7 @@ public:
 	void DecBookNum(CString BookId);
 	void IncBookNum(CString BookId);
 	void SetBookNoLeftToRed(CMyCListCtrl* pListCtrl);
+	bool HasBookLeftById(CString BookId);
 };
 //读者数据集
 class CReaderDataset : public CDataset<CReaderData>

@@ -433,6 +433,16 @@ void CBookDataset::SetBookNoLeftToRed(CMyCListCtrl* pListCtrl) {
 		it++;
 	}
 }
+bool CBookDataset::HasBookLeftById(CString BookId) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(BookId) == 0) {
+			return (*it).HasBookLeft();
+		}
+		it++;
+	}
+	return 0;
+}
 //--------------------------------------------------
 /************************************************
    CBookDataset ³ÉÔ±º¯Êý End

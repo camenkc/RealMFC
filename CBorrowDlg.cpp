@@ -57,6 +57,10 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(s1);
+			if (pBookDataset->HasBookLeftById(s1) == false) {
+				MessageBox(_T(CString("图书库存不足")), _T(""), MB_OK | MB_ICONINFORMATION);
+				return;
+			}
 			pBookDataset->DecBookNum(s1);
 			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
 			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
@@ -88,6 +92,10 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(tmp);
+			if (pBookDataset->HasBookLeftById(tmp)==false) {
+				MessageBox(_T(CString("图书库存不足")), _T(""), MB_OK | MB_ICONINFORMATION);
+				return;
+			}
 			pBookDataset->DecBookNum(tmp);
 			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
 			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
