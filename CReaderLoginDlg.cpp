@@ -84,6 +84,10 @@ BOOL CReaderLoginDlg::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 
 		}
+		else if (pMsg->message == VK_ESCAPE)
+		{
+			return TRUE;
+		}
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
 }

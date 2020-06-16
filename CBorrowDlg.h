@@ -26,8 +26,12 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	int flag = 1;
 	CEdit BorrowBookId;
 	CEdit BorrowBookName;
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedRadio1();
+	afx_msg void OnBnClickedRadio2();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -139,6 +139,10 @@ BOOL CReaderRegisterDlg::PreTranslateMessage(MSG* pMsg)
 			OnBnClickedButton1();
 			return TRUE;
 		}
+		else if (pMsg->message == VK_ESCAPE)
+		{
+			return TRUE;
+		}
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
 }

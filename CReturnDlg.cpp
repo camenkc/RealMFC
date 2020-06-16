@@ -69,6 +69,7 @@ void CReturnDlg::OnBnClickedButton2()
 			}
 			else {
 				MessageBox(_T(CString("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
+				
 			}
 		}
 	}
