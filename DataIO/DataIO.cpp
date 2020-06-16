@@ -208,7 +208,7 @@ int CDataset<T> :: readAllData(){
 
 //制表：把m_pData中的数据填写到列表控件 pListCtrl 中
 template <class T>
-void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData){
+void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int CtrlNumber){
 	pListCtrl->SetExtendedStyle(pListCtrl->GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES );
 	
 	//控件暂时不要绘制，否则数据量大的时候会很慢
@@ -217,9 +217,13 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData){
 	//清空表格控件
 	clearCListCtrl(pListCtrl);
 	
-	//填写表格控件的头
-	doListHeader(pListCtrl);
-
+	//填写表格控件的头  CtrlNumber为1时说明需要隐藏密码栏
+	if (CtrlNumber==1)
+	doListHeader(pListCtrl,1);
+	else
+	{
+		doListHeader(pListCtrl);
+	}
 	if(m_pData == NULL){
 		m_pData = &aData;
 	}
@@ -247,7 +251,7 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData){
 
 //填写表头
 template <class T>
-void CDataset<T> :: doListHeader(CListCtrl *pListCtrl){
+void CDataset<T> :: doListHeader(CListCtrl *pListCtrl,int CtrlNumber=0){
 	if(pListCtrl->GetHeaderCtrl()){
 		clearCListCtrl(pListCtrl);
 	}
@@ -257,6 +261,7 @@ void CDataset<T> :: doListHeader(CListCtrl *pListCtrl){
 
 	int nNumField = aFields.size();
 	for(int i = 0; i < nNumField; i++) {
+		if (CtrlNumber == 1 && i == 1) continue;//控制代码为1时，说明此时不能显示第二行(用来隐藏密码栏)
 		if (pMylist) {
 			pMylist->InsertColumn(i + 1, (LPCTSTR)aFields[i].sFieldName, LVCFMT_CENTER, 80);
 		}

@@ -88,10 +88,10 @@ public:
 	virtual int readAllData();
 
 	//制表：把m_pData中的数据填写到列表控件 pListCtrl 中
-	virtual void dataToListCtrl(CListCtrl* pListCtrl, vector<T>* m_pData = NULL);
+	virtual void dataToListCtrl(CListCtrl* pListCtrl, vector<T>* m_pData = NULL ,int CtrlNumber=0 );
 
 	//填写表头
-	virtual void doListHeader(CListCtrl* pListCtrl);
+	virtual void doListHeader(CListCtrl* pListCtrl,int CtrlNumber=0);
 
 
 	//静态成员函数

@@ -45,9 +45,11 @@ BOOL CReaderViewDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	//初始化列表
 	pReaderDataset->readAllData();
-	
-	pReaderDataset->dataToListCtrl(&ReaderList);
-
+	if (CMFCTest03Dlg::NowLoginReader!=1)
+	pReaderDataset->dataToListCtrl(&ReaderList,NULL,1);
+	else {
+		pReaderDataset->dataToListCtrl(&ReaderList);
+	}
 	const int loginreader = CMFCTest03Dlg::NowLoginReader;
 	
 
