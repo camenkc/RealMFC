@@ -446,7 +446,7 @@ public:
 	virtual ~CReaderDataset() {}
 
 	CReaderData* getItemByName(CString name);
-	
+	char* getNameById(int n);
     int getClassById(int n);
 	int CheckIfHasTheReader(CString name, CString password);
 	int CheckIfHasTheReader(int Id, CString password);

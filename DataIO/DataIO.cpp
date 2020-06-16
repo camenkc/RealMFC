@@ -433,13 +433,27 @@ CReaderData* CReaderDataset::getItemByName(CString name) {
 	}
 	return NULL;
 }
+char* CReaderDataset::getNameById(int n)
+{
+	vector<CReaderData>::iterator tmp = aData.begin();
+	CString n1; n1.Format("%d", n);
+	while (tmp != aData.end()) {
+		if ((*tmp)[0].Compare(n1)==0 )
+		{
+			return (*tmp).sReaderName;
+		}
+		tmp++;
+	}
+	return NULL;
+}
 
 int  CReaderDataset::getClassById(int n)
 {
 	vector<CReaderData>::iterator temp = aData.begin();
+	CString n1; n1.Format("%d", n);
 	while (temp!=aData.end())
 	{
-		if ((*temp)[0] == n)
+		if ((*temp)[0].Compare(n1)==0)
 		{
 			return (*temp).nClass;
 		}

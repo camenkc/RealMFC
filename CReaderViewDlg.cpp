@@ -51,8 +51,8 @@ BOOL CReaderViewDlg::OnInitDialog()
 	const int loginreader = CMFCTest03Dlg::NowLoginReader;
 	
 
-	ReaderList.DeleteColumn(1);
-	if (pReaderDataset->getClassById(loginreader))
+
+	if (pReaderDataset->getClassById(loginreader)!=1)
 	{
 		//pReaderDataset->clearByCol(&ReaderList, 1);
 		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);

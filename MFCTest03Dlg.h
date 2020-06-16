@@ -1,7 +1,7 @@
 ﻿
 // MFCTest03Dlg.h: 头文件
 //
-
+#include"CReaderViewDlg.h"
 #pragma once
 
 
@@ -45,6 +45,7 @@ public:
 	static int NowLoginReader;//静态成员 表示当前登录的人的标识码 0为未登录 
 							//这样在全局都可以设置这个变量
 	CEdit NowReaderCode;
+	CReaderDataset* pReaderDataset;
 
 	afx_msg void OnLogoutClicked();
 	afx_msg void OnReaderView();

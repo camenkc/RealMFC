@@ -33,6 +33,7 @@ void CReturnDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CReturnDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CReturnDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON1, &CReturnDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -98,4 +99,11 @@ void CReturnDlg::OnBnClickedButton2()
 
 
 
+}
+
+
+void CReturnDlg::OnBnClickedButton1()
+{
+	OnOK();
+	OnClose();
 }

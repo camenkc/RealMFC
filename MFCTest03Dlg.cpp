@@ -14,6 +14,7 @@
 #include "afxdialogex.h"
 #include"CBookInDlg.h"
 #include "CReaderViewDlg.h"
+
 #include "CBorrowViewDlg.h"
 #include "CHistoryViewDlg.h"
 #include"CDlgBookView.h"
@@ -68,7 +69,10 @@ CMFCTest03Dlg::CMFCTest03Dlg(CWnd* pParent /*=nullptr*/)
 void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+
 	DDX_Control(pDX, IDC_EDIT2, NowReaderCode);
+	NowReaderCode.SetWindowTextA(CString("未登录"));
+	
 }
 
 BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
@@ -96,6 +100,11 @@ END_MESSAGE_MAP()
 BOOL CMFCTest03Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+
+
+	pReaderDataset = new CReaderDataset();
+	pReaderDataset->readAllData();
+
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -237,8 +246,19 @@ void CMFCTest03Dlg::OnReaderLogin()
 	CReaderLoginDlg dlg;
 	dlg.DoModal();
 	CString tmp;
-	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
-	NowReaderCode.SetWindowTextA(tmp);
+
+
+	tmp.Format("%s", pReaderDataset->getNameById(NowLoginReader));
+	//tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
+	if (NowLoginReader == 0)
+	{
+		NowReaderCode.SetWindowTextA(CString("未登录"));
+	}
+	else
+	{
+		NowReaderCode.SetWindowTextA(tmp);
+	}
+	
 	if (NowLoginReader != 0) 
 	{
 		//当前有人登录了 那么把菜单中的账号登录disable 把退出enable
@@ -267,7 +287,7 @@ void CMFCTest03Dlg::OnRegister()
 		if (::MessageBox(NULL, CString("注册新账号需退出当前账号，是否退出"), "消息确认...", MB_YESNO | MB_ICONQUESTION) == IDYES)
 		{
 			NowLoginReader = 0;
-			NowReaderCode.SetWindowTextA("0");
+			NowReaderCode.SetWindowTextA("未登录");
 			CMenu* subMenu = GetMenu()->GetSubMenu(1);
 			subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
 			CMenu* subsubMenu = subMenu->GetSubMenu(0);
@@ -308,7 +328,7 @@ void CMFCTest03Dlg::OnLogoutClicked()
 
 
 		NowLoginReader = 0;
-		NowReaderCode.SetWindowTextA("0");
+		NowReaderCode.SetWindowTextA("未登录");
 		CMenu* subMenu = GetMenu()->GetSubMenu(1);
 		subMenu->EnableMenuItem(1, MF_BYPOSITION | MF_GRAYED);
 		CMenu* subsubMenu = subMenu->GetSubMenu(0);
