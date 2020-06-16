@@ -11,6 +11,7 @@ class CBorrowDlg : public CDialogEx
 	DECLARE_DYNAMIC(CBorrowDlg)
 	CBookDataset* pBookDataset;
 	CBorrowDataset* pBorrowDataset;
+	CReaderDataset* pReaderDataset;
 public:
 	CBorrowDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CBorrowDlg();

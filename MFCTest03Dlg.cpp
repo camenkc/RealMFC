@@ -64,6 +64,7 @@ CMFCTest03Dlg::CMFCTest03Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOGIndex, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICONMuQ);
+	pBorrowDataset = new CBorrowDataset();
 }
 
 void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)
@@ -71,8 +72,9 @@ void CMFCTest03Dlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 
 	DDX_Control(pDX, IDC_EDIT2, NowReaderCode);
-	
-	
+
+
+	DDX_Control(pDX, IDC_LIST1, MainBorrowList);
 }
 
 BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
@@ -101,9 +103,6 @@ BOOL CMFCTest03Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-
-	pReaderDataset = new CReaderDataset();
-	pReaderDataset->readAllData();
 
 
 	// 将“关于...”菜单项添加到系统菜单中。
@@ -136,6 +135,10 @@ BOOL CMFCTest03Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
+	pReaderDataset = new CReaderDataset();
+	pReaderDataset->readAllData();
+	RefreshMainDlg();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -280,7 +283,9 @@ void CMFCTest03Dlg::OnReaderLogin()
 		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
 		
 		DrawMenuBar();
+		
 	}
+	RefreshMainDlg();
 }
 
 //按下注册按钮
@@ -319,6 +324,16 @@ void CMFCTest03Dlg::OnRegister()
 	}
 }
 
+//刷新主对话框的CtrlList 
+void CMFCTest03Dlg::RefreshMainDlg() {
+	pBorrowDataset->readAllData();
+
+	vector<CBorrowData> tmpBorrowDataset;//临时的在借 存放需要找到的在借记录
+	CString sVal; sVal.Format("%d", NowLoginReader);
+	pBorrowDataset->selectData(tmpBorrowDataset, "读者Id", eEqual, sVal);
+
+	pBorrowDataset->dataToListCtrl(&MainBorrowList, &tmpBorrowDataset);
+}
 
 //按下退出账户按钮
 void CMFCTest03Dlg::OnLogoutClicked()

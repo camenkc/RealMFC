@@ -9,6 +9,8 @@
 class CMFCTest03Dlg : public CDialogEx
 {
 // 构造
+	CBorrowDataset* pBorrowDataset;
+
 public:
 	CMFCTest03Dlg(CWnd* pParent = nullptr);	// 标准构造函数
 
@@ -40,6 +42,7 @@ public:
 	afx_msg void OnReaderChange();
 	afx_msg void OnReaderLogin();
 	afx_msg void OnRegister();
+	afx_msg void RefreshMainDlg();//刷新主对话框的ListCtrl
 
 public:
 	static int NowLoginReader;//静态成员 表示当前登录的人的标识码 0为未登录 
@@ -51,4 +54,5 @@ public:
 	afx_msg void OnReaderView();
 	afx_msg void OnBorrowView();
 	afx_msg void OnHistoryVIewDlg();
+	CListCtrl MainBorrowList;
 };

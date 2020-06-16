@@ -208,7 +208,7 @@ int CDataset<T> :: readAllData(){
 
 //制表：把m_pData中的数据填写到列表控件 pListCtrl 中
 template <class T>
-void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int CtrlNumber){
+void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData){
 	pListCtrl->SetExtendedStyle(pListCtrl->GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES );
 	
 	//控件暂时不要绘制，否则数据量大的时候会很慢
@@ -217,13 +217,9 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int 
 	//清空表格控件
 	clearCListCtrl(pListCtrl);
 	
-	//填写表格控件的头  CtrlNumber为1时说明需要隐藏密码栏
-	if (CtrlNumber==1)
-	doListHeader(pListCtrl,1);
-	else
-	{
-		doListHeader(pListCtrl);
-	}
+	//填写表格控件的头
+	doListHeader(pListCtrl);
+
 	if(m_pData == NULL){
 		m_pData = &aData;
 	}
@@ -251,7 +247,7 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int 
 
 //填写表头
 template <class T>
-void CDataset<T> :: doListHeader(CListCtrl *pListCtrl,int CtrlNumber=0){
+void CDataset<T> :: doListHeader(CListCtrl *pListCtrl){
 	if(pListCtrl->GetHeaderCtrl()){
 		clearCListCtrl(pListCtrl);
 	}
@@ -261,7 +257,6 @@ void CDataset<T> :: doListHeader(CListCtrl *pListCtrl,int CtrlNumber=0){
 
 	int nNumField = aFields.size();
 	for(int i = 0; i < nNumField; i++) {
-		if (CtrlNumber == 1 && i == 1) continue;//控制代码为1时，说明此时不能显示第二行(用来隐藏密码栏)
 		if (pMylist) {
 			pMylist->InsertColumn(i + 1, (LPCTSTR)aFields[i].sFieldName, LVCFMT_CENTER, 80);
 		}
@@ -553,10 +548,10 @@ CHistoryDataset::CHistoryDataset()
 
 CBorrowDataset::CBorrowDataset()
 {
-	EField aType[5] = { eInt, eInt, eInt, eString,eString };
-	char* aName[5] = { "Id","读者Id","图书Id","日期","时间" };
+	EField aType[7] = { eInt, eInt, eInt,eString, eString, eString,eString };
+	char* aName[7] = { "Id","读者Id","图书Id","读者姓名","图书名称","日期","时间" };
 	CField field;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		field.eFieldType = aType[i];
 		field.sFieldName = aName[i];

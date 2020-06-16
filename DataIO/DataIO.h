@@ -88,10 +88,10 @@ public:
 	virtual int readAllData();
 
 	//制表：把m_pData中的数据填写到列表控件 pListCtrl 中
-	virtual void dataToListCtrl(CListCtrl* pListCtrl, vector<T>* m_pData = NULL ,int CtrlNumber=0 );
+	virtual void dataToListCtrl(CListCtrl* pListCtrl, vector<T>* m_pData = NULL);
 
 	//填写表头
-	virtual void doListHeader(CListCtrl* pListCtrl,int CtrlNumber=0);
+	virtual void doListHeader(CListCtrl* pListCtrl);
 
 
 	//静态成员函数
@@ -297,10 +297,12 @@ public:
 	int    nBorrowId;
 	int    nBorrowReaderId;
 	int    nBorrowBookId;
+	char   strReaderName[31];
+	char   strBookName[31];
 	char   strBorrowDate[31];
 	char   strBorrowTime[31];
 	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
-	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0,char * strData="",char * strTime="")
+	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0, char* sReaderName = "", char* sBookName = "", char* strData = "", char* strTime = "")
 	{
 		nBorrowId = id;
 		nBorrowReaderId = nReaderId;
@@ -310,6 +312,8 @@ public:
 		CString Tempa;
 		CString Tempb;
 
+		strcpy_s(strReaderName, 31, sReaderName);
+		strcpy_s(strBookName, 31, sBookName);
 		Tempa.Format("%d-%d-%d", st.wYear, st.wMonth, st.wDay);
 		Tempb.Format("%d:%d:%d", st.wHour, st.wMinute, st.wSecond);
 		strcpy_s(strBorrowDate, (LPSTR)(LPCTSTR)Tempa);
@@ -328,8 +332,10 @@ public:
 		case 0:  s.Format("%d", nBorrowId);         break;
 		case 1:  s.Format("%d", nBorrowReaderId);         break;
 		case 2:  s.Format("%d", nBorrowBookId);         break;
-		case 3:  s = strBorrowDate;						break;
-		case 4:  s = strBorrowTime;					break;
+		case 3:	 s = strReaderName;						break;
+		case 4:	 s = strBookName;						break;
+		case 5:  s = strBorrowDate;						break;
+		case 6:  s = strBorrowTime;					break;
 		default: throw CString("CBookData：字段越界");
 		}
 
@@ -338,10 +344,10 @@ public:
 	virtual CString operator[](CString sFieldName)
 	{
 
-		char* aName[5] = { "Id","读者Id","图书Id","日期","时间" };
+		char* aName[7] = { "Id","读者Id","图书Id","读者姓名","图书名称","日期","时间" };
 
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (aName[i] == sFieldName)
 			{
 				return (*this)[i];

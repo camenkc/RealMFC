@@ -17,6 +17,7 @@ CBorrowDlg::CBorrowDlg(CWnd* pParent /*=nullptr*/)
 {
 	pBookDataset = new CBookDataset();
 	pBorrowDataset = new CBorrowDataset();
+	pReaderDataset = new CReaderDataset();
 }
 
 CBorrowDlg::~CBorrowDlg()
@@ -45,6 +46,7 @@ void CBorrowDlg::OnBnClickedButton1()
 {
 	pBookDataset->readAllData();
 	pBorrowDataset->readAllData();
+	pReaderDataset->readAllData();
 	CString s1,s2;
 	BorrowBookId.GetWindowTextA(s1);		
 	BorrowBookName.GetWindowTextA(s2);
@@ -55,7 +57,12 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(s1);
-			CBorrowData *addData= new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId);
+			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
+			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
+			CString BookName = (*BookData)[1];
+			CString	ReaderName = (*ReaderData)[2];
+
+			CBorrowData *addData= new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId,ReaderName.GetBuffer(),BookName.GetBuffer());
 			pBorrowDataset->saveOneItemToFile(addData);
 			delete addData;
 			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
@@ -79,7 +86,12 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(tmp);
-			CBorrowData* addData = new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId);
+			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
+			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
+			CString BookName = (*BookData)[1];
+			CString	ReaderName = (*ReaderData)[2];
+
+			CBorrowData* addData = new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId, ReaderName.GetBuffer(), BookName.GetBuffer());
 			pBorrowDataset->saveOneItemToFile(addData);
 			delete addData; 
 			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);

@@ -96,3 +96,4 @@ void CHistoryViewDlg::OnBnClickedButton1()
 
 	pHistoryDataset->dataToListCtrl(&HistoryList, &tepHistoryDataset);
 }
+

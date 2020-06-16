@@ -59,7 +59,6 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	if (s1.IsEmpty()) 
 	{
 		MessageBox(_T(CString("请输入原密码")), _T(""), MB_OK | MB_ICONINFORMATION);
-		return;
 	}
 	int tmp = pReaderDataset->CheckIfHasTheReader(CMFCTest03Dlg::NowLoginReader, s1);
 	if (!tmp) 
