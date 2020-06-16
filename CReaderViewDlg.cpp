@@ -95,3 +95,4 @@ void CReaderViewDlg::OnBnClickedButton1()
 {
 	pReaderDataset->dataToListCtrl(&ReaderList);
 }
+
