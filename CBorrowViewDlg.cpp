@@ -47,7 +47,7 @@ BOOL CBorrowViewDlg::OnInitDialog()
 
 	pBorrowDataset->dataToListCtrl(&BorrowList);
 
-	
+	CmbForBorrow.SetCurSel(0);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
@@ -56,32 +56,41 @@ BOOL CBorrowViewDlg::OnInitDialog()
 //应用数据筛选
 void CBorrowViewDlg::OnBnClickedOk()
 {
+
 	CBorrowData tmp;
 	//借出编号; 借出书籍编号; 借出读者编号; 借出日期;
 	int index = CmbForBorrow.GetCurSel();
 	CString sField;
 	CString sVal;
 	TargetBorrowEdit.GetWindowTextA(sVal);
-	if (index == 0) {
-		sField = "Id";
+	if (sVal.IsEmpty())
+	{
+		MessageBox(_T(CString("请输入参数")), _T(""), MB_OK | MB_ICONINFORMATION);
+		TargetBorrowEdit.SetFocus();
+		return;
 	}
-	else if (index == 1) {
-		sField = "图书Id";
-	}
-	else if (index == 2) {
-		sField = "读者Id";
-	}
-	else if (index == 3) {
-		sField = "日期";
+	else
+	{
+		if (index == 0) {
+			sField = "Id";
+		}
+		else if (index == 1) {
+			sField = "图书Id";
+		}
+		else if (index == 2) {
+			sField = "读者Id";
+		}
+		else if (index == 3) {
+			sField = "日期";
+		}
+
+		vector<CBorrowData> tmpBorrowDataset;
+
+		pBorrowDataset->selectData(tmpBorrowDataset, sField, eEqual, sVal);
+
+		pBorrowDataset->dataToListCtrl(&BorrowList, &tmpBorrowDataset);
 	}
 
-	vector<CBorrowData> tmpBorrowDataset;
-
-	pBorrowDataset->selectData(tmpBorrowDataset, sField, eEqual, sVal);
-
-	pBorrowDataset->dataToListCtrl(&BorrowList, &tmpBorrowDataset);
-
-	
 }
 
 //回到初始状态
@@ -89,3 +98,21 @@ void CBorrowViewDlg::OnBnClickedButton1()
 {
 	pBorrowDataset->dataToListCtrl(&BorrowList);
 }
+BOOL CBorrowViewDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当案件为enter时自动登录
+		if (pMsg->wParam == VK_RETURN)
+		{
+			OnBnClickedOk();
+			return TRUE;
+
+		}
+		else if (pMsg->message == VK_ESCAPE)
+		{
+			return TRUE;
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
+

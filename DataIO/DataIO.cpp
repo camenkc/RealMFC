@@ -401,6 +401,16 @@ CString CBookDataset::GetBookNameById(CString Id) {
 		it++;
 	}return CString("");
 }
+CString CBookDataset::GetBookIdByName(CString Name)
+{
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[1].Compare(Name) == 0) {
+			return (*it)[0];
+		}
+		it++;
+	}return CString("");
+}
 void CBookDataset::DecBookNum(CString BookId) {
 	vector<CBookData>::iterator it = aData.begin();
 	while (it != aData.end()) {
@@ -612,6 +622,19 @@ CString CBorrowDataset::CheckIfHasBorrowData(CString BookId, CString ReaderId) {
 	vector<CBorrowData>::iterator it = aData.begin();
 	while (it != aData.end()) {
 		if ((*it)[2].Compare(BookId) == 0 && (*it)[1].Compare(ReaderId) == 0) {
+			return (*it)[0];
+		}
+		it++;
+	}
+	return "";
+}
+CString CBorrowDataset::CheckIfHasBorrowDataByName(CString BookName, CString ReaderId) 
+{
+	vector<CBorrowData>::iterator it = aData.begin();
+	while (it != aData.end()) 
+	{
+		if ((*it)[4].Compare(BookName) == 0 && (*it)[1].Compare(ReaderId) == 0) 
+		{
 			return (*it)[0];
 		}
 		it++;

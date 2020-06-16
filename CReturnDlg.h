@@ -12,6 +12,7 @@ class CReturnDlg : public CDialogEx
 	CBorrowDataset* pBorrowDataset;
 	CHistoryDataset* pHistoryDataset;
 	CBookDataset* pBookDataset;
+	
 public:
 	CReturnDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CReturnDlg();
@@ -26,9 +27,14 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	int flag;
 	CEdit ReturnBookId;
 	CEdit ReturnBookName;
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton1();
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedRadio1();
+	afx_msg void OnBnClickedRadio2();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
 };

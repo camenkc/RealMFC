@@ -26,7 +26,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	int flag = 1;
+	int flag;
 	CEdit BorrowBookId;
 	CEdit BorrowBookName;
 	afx_msg void OnBnClickedButton1();

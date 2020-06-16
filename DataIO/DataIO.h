@@ -459,6 +459,7 @@ public:
 	int CheckIfHaveTheBookById(CString Id);
 	CString CheckIfHaveTheBookByName(CString Name);//返回值为CString类型的书籍Id 若没有返回""
 	CString GetBookNameById(CString Id);
+	CString GetBookIdByName(CString Id);
 	void DecBookNum(CString BookId);
 	void IncBookNum(CString BookId);
 	void SetBookNoLeftToRed(CMyCListCtrl* pListCtrl);
@@ -503,6 +504,8 @@ public:
 	virtual ~CBorrowDataset() {}
 
 	CString CheckIfHasBorrowData(CString BorrowId, CString ReaderId);
+	CString CheckIfHasBorrowDataByName(CString BookName, CString ReaderId);
+
 };
 
 template <class T>

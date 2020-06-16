@@ -31,6 +31,7 @@ void CBorrowDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT1, BorrowBookId);
 	DDX_Control(pDX, IDC_EDIT2, BorrowBookName);
 	((CButton*)GetDlgItem(IDC_RADIO1))->SetCheck(BST_CHECKED);
+	flag = 1;
 
 }
 

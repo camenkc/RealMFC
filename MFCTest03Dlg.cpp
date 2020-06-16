@@ -346,7 +346,8 @@ void CMFCTest03Dlg::OnRegister()
 }
 
 //刷新主对话框的CtrlList 
-void CMFCTest03Dlg::RefreshMainDlg() {
+void CMFCTest03Dlg::RefreshMainDlg() 
+{
 	pBorrowDataset->readAllData();
 
 	vector<CBorrowData> tmpBorrowDataset;//临时的在借 存放需要找到的在借记录

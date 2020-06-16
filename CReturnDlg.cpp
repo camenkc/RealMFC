@@ -28,12 +28,16 @@ void CReturnDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT3, ReturnBookId);
 	DDX_Control(pDX, IDC_EDIT2, ReturnBookName);
+	((CButton*)GetDlgItem(IDC_RADIO1))->SetCheck(BST_CHECKED);
+	flag = 1;
 }
 
 
 BEGIN_MESSAGE_MAP(CReturnDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CReturnDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON1, &CReturnDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_RADIO1, &CReturnDlg::OnBnClickedRadio1)
+	ON_BN_CLICKED(IDC_RADIO2, &CReturnDlg::OnBnClickedRadio2)
 END_MESSAGE_MAP()
 
 
@@ -57,54 +61,122 @@ void CReturnDlg::OnBnClickedButton2()
 	ReturnBookId.GetWindowTextA(s1);
 	ReturnBookName.GetWindowTextA(s2);
 
-	if (s1.IsEmpty()) {
-		if (s2.IsEmpty()) {
-			MessageBox(_T(CString("请输入图书编号或者图书名称")), _T(""), MB_OK | MB_ICONINFORMATION);
-		
-		}
-		else {
-			CString BookId = pBookDataset->CheckIfHaveTheBookByName(s2);
-			if (BookId.Compare("") != 0) {
-				s1 = BookId;
-			}
-			else {
-				MessageBox(_T(CString("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
-				
-			}
-		}
-	}
-
-	CString ReaderId;
+	CString ReaderId, BookId;
 	ReaderId.Format("%d", CMFCTest03Dlg::NowLoginReader);
-	//查询是否有这样的在借记录(读者编号、图书编号) tmp记录的是在借编号 以便马上删除用
-	CString tmp = pBorrowDataset->CheckIfHasBorrowData(s1, ReaderId);
-	if (tmp.Compare("") != 0) {
-		//新建一条History记录
-		int nHistoryId = pHistoryDataset->getMaxVal("Id");
-		nHistoryId++;
-		int nBookId = _ttoi(s1);
-		int nBorrowId = _ttoi(tmp);
-		pBookDataset->IncBookNum(s1);
-		CBorrowData* TarBorrowData = pBorrowDataset->getItemByKeyVal("Id", nBorrowId);
-		CString BorrowDate = (*TarBorrowData)[3];
-		CString BorrowTime = (*TarBorrowData)[4];
-		CHistoryData addData(nHistoryId, nBookId, CMFCTest03Dlg::NowLoginReader, BorrowDate.GetBuffer(), BorrowTime.GetBuffer());
-		pHistoryDataset->saveOneItemToFile(&addData);
-		//从BorrowDataset中删除tmp编号
-		pBorrowDataset->deleteItemByKeyVal("Id", nBorrowId);
-		pBorrowDataset->saveAllDataToFile();
-		pBookDataset->saveAllDataToFile();
-		MessageBox(_T(CString("已归还")), _T(""), MB_OK | MB_ICONINFORMATION);
-	
-	}
-	else {
-		MessageBox(_T(CString("您没有借出此本书")), _T(""), MB_OK | MB_ICONINFORMATION);
-		return;
-	}
 
+	if (flag == 1)
+	{
+		if (s1.IsEmpty())
+		{
+			
+			MessageBox(_T(CString("请输入图书编号")), _T(""), MB_OK | MB_ICONINFORMATION);
+			ReturnBookId.SetFocus();
+			return;
+		}
+		else
+		{
+			
+			if (pBookDataset->CheckIfHaveTheBookById(s1)!=1)
+			{
+				MessageBox(_T(CString("未找到该图书，请检查图书编号\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
+				ReturnBookId.SetFocus();
+				ReturnBookId.SetSel(0, -1);
+				return;
+			}
+			else
+			{
+				CString tmp = pBorrowDataset->CheckIfHasBorrowData(s1, ReaderId);
+				if (tmp.Compare("") != 0) 
+				{
+					//新建一条History记录
+					int nHistoryId = pHistoryDataset->getMaxVal("Id");
+					nHistoryId++;
+					int nBookId = _ttoi(s1);
+					int nBorrowId = _ttoi(tmp);
+					pBookDataset->IncBookNum(s1);
+					CBorrowData* TarBorrowData = pBorrowDataset->getItemByKeyVal("Id", nBorrowId);
+					CString BorrowDate = (*TarBorrowData)[3];
+					CString BorrowTime = (*TarBorrowData)[4];
+					CHistoryData addData(nHistoryId, nBookId, CMFCTest03Dlg::NowLoginReader, BorrowDate.GetBuffer(), BorrowTime.GetBuffer());
+					pHistoryDataset->saveOneItemToFile(&addData);
+					//从BorrowDataset中删除tmp编号
+					pBorrowDataset->deleteItemByKeyVal("Id", nBorrowId);
+					pBorrowDataset->saveAllDataToFile();
+					pBookDataset->saveAllDataToFile();
+					MessageBox(_T(CString("已归还图书:\n")+pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
+					ReturnBookId.SetWindowTextA("");
+					ReturnBookName.SetWindowTextA("");
+					ReturnBookId.SetFocus();
+				
+					return;
+				}
+				else 
+				{
+					MessageBox(_T(CString("您没有借出此本书")), _T(""), MB_OK | MB_ICONINFORMATION);
+					ReturnBookId.SetFocus();
+					ReturnBookId.SetSel(0, -1);
+					return;
+				}
+			}
+		}
+	}
+	else
+	{
+		if (s2.IsEmpty())
+		{
 
+			MessageBox(_T(CString("请输入图书名称")), _T(""), MB_OK | MB_ICONINFORMATION);
+			ReturnBookName.SetFocus();
+			return;
+		}
+		else
+		{
+			if (pBookDataset->CheckIfHaveTheBookByName(s2)!=1)
+			{
+				MessageBox(_T(CString("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
+				ReturnBookName.SetFocus();
+				ReturnBookName.SetSel(0, -1);
+				return;
+			}
+			else
+			{
+				CString tmp = pBorrowDataset->CheckIfHasBorrowDataByName(s2, ReaderId);
+				if (tmp.Compare("") != 0)
+				{
+					//新建一条History记录
+					int nHistoryId = pHistoryDataset->getMaxVal("Id");
+					nHistoryId++;
+					int nBookId = _ttoi(pBookDataset->GetBookIdByName(s2));
+					int nBorrowId = _ttoi(tmp);
+					pBookDataset->IncBookNum(pBookDataset->GetBookIdByName(s2));
+					CBorrowData* TarBorrowData = pBorrowDataset->getItemByKeyVal("Id", nBorrowId);
+					CString BorrowDate = (*TarBorrowData)[3];
+					CString BorrowTime = (*TarBorrowData)[4];
+					CHistoryData addData(nHistoryId, nBookId, CMFCTest03Dlg::NowLoginReader, BorrowDate.GetBuffer(), BorrowTime.GetBuffer());
+					pHistoryDataset->saveOneItemToFile(&addData);
+					//从BorrowDataset中删除tmp编号
+					pBorrowDataset->deleteItemByKeyVal("Id", nBorrowId);
+					pBorrowDataset->saveAllDataToFile();
+					pBookDataset->saveAllDataToFile();
+					MessageBox(_T(CString("已归还图书：\n")+s2), _T(""), MB_OK | MB_ICONINFORMATION);
+					ReturnBookId.SetWindowTextA("");
+					ReturnBookName.SetWindowTextA("");
+					ReturnBookId.SetFocus();
+					return;
+
+				}
+				else {
+					MessageBox(_T(CString("您没有借出此本书")), _T(""), MB_OK | MB_ICONINFORMATION);
+					ReturnBookName.SetFocus();
+					ReturnBookName.SetSel(0, -1);
+					return;
+				}
+			}
+		}
+	}
 
 }
+
 
 
 void CReturnDlg::OnBnClickedButton1()
@@ -127,3 +199,42 @@ BOOL CReturnDlg::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
+
+void CReturnDlg::OnBnClickedRadio1()
+{
+	flag = 1;
+	ReturnBookId.EnableWindow(TRUE);
+	ReturnBookName.EnableWindow(FALSE);
+	ReturnBookId.SetFocus();
+	ReturnBookId.SetSel(0, -1);
+}
+
+
+void CReturnDlg::OnBnClickedRadio2()
+{
+	flag = 2;
+	ReturnBookId.EnableWindow(FALSE);
+	ReturnBookName.EnableWindow(TRUE);
+	ReturnBookName.SetFocus();
+	ReturnBookName.SetSel(0, -1);
+}
+BOOL CReturnDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		//当案件为enter时查询
+		if (pMsg->wParam == VK_RETURN)
+		{
+			OnBnClickedButton1();
+			return TRUE;
+
+		}
+		else if (pMsg->message == VK_ESCAPE)
+		{
+			return TRUE;
+		}
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
+
