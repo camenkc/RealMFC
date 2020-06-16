@@ -141,6 +141,9 @@ BOOL CMFCTest03Dlg::OnInitDialog()
 	pReaderDataset->readAllData();
 	RefreshMainDlg();
 
+
+		SkinH_Attach();
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -257,10 +260,11 @@ void CMFCTest03Dlg::OnReaderChange()
 void CMFCTest03Dlg::OnReaderLogin()
 {
 	CReaderLoginDlg dlg;
-	dlg.DoModal();
+	dlg.DoModal(); 
 	CString tmp;
 
 
+	pReaderDataset->readAllData();
 	tmp.Format("%s", pReaderDataset->getNameById(NowLoginReader));
 	//tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
 	if (NowLoginReader == 0)
@@ -314,8 +318,7 @@ void CMFCTest03Dlg::OnRegister()
 	CReaderRegisterDlg dlg;
 	dlg.DoModal();
 	CString tmp;
-	tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
-	NowReaderCode.SetWindowTextA(tmp);
+	
 	if (NowLoginReader != 0)
 	{
 		CMenu* menu = GetMenu();//当前对话框的menu就是要修改的menu
@@ -327,6 +330,17 @@ void CMFCTest03Dlg::OnRegister()
 		menu->EnableMenuItem(2, MF_BYPOSITION | MF_ENABLED);
 
 		DrawMenuBar();
+	}
+	pReaderDataset->readAllData();
+	tmp.Format("%s", pReaderDataset->getNameById(NowLoginReader));
+	//tmp.Format("%d", CMFCTest03Dlg::NowLoginReader);
+	if (NowLoginReader == 0)
+	{
+		NowReaderCode.SetWindowTextA(CString("未登录"));
+	}
+	else
+	{
+		NowReaderCode.SetWindowTextA(tmp);
 	}
 	RefreshMainDlg();
 }
