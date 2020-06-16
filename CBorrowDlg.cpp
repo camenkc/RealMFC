@@ -57,6 +57,7 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(s1);
+			pBookDataset->DecBookNum(s1);
 			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
 			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
 			CString BookName = (*BookData)[1];
@@ -64,6 +65,7 @@ void CBorrowDlg::OnBnClickedButton1()
 
 			CBorrowData *addData= new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId,ReaderName.GetBuffer(),BookName.GetBuffer());
 			pBorrowDataset->saveOneItemToFile(addData);
+			pBookDataset->saveAllDataToFile();
 			delete addData;
 			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
 	
@@ -86,6 +88,7 @@ void CBorrowDlg::OnBnClickedButton1()
 			int BorrowNumber = pBorrowDataset->getMaxVal("Id");
 			BorrowNumber++;
 			int BookId = _ttoi(tmp);
+			pBookDataset->DecBookNum(tmp);
 			CBookData* BookData = pBookDataset->getItemByKeyVal("Id", BookId);
 			CReaderData* ReaderData = pReaderDataset->getItemByKeyVal("Id", CMFCTest03Dlg::NowLoginReader);
 			CString BookName = (*BookData)[1];
@@ -93,6 +96,7 @@ void CBorrowDlg::OnBnClickedButton1()
 
 			CBorrowData* addData = new CBorrowData(BorrowNumber, CMFCTest03Dlg::NowLoginReader, BookId, ReaderName.GetBuffer(), BookName.GetBuffer());
 			pBorrowDataset->saveOneItemToFile(addData);
+			pBookDataset->saveAllDataToFile();
 			delete addData; 
 			MessageBox(_T(CString("图书借阅成功\n您借阅的图书为：") + pBookDataset->GetBookNameById(s1)), _T(""), MB_OK | MB_ICONINFORMATION);
 		

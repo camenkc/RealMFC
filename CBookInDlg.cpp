@@ -175,7 +175,7 @@ BOOL CBookInDlg::OnInitDialog()
 	listBook.SetRowHeigtFactor(1.3);
 	//第二列 文本为蓝色
 	listBook.SetColTextColor(1, RGB(0, 0, 255));
-	//第2列 第3行 
+	
 
 
 	m_pBookDataset = new CBookDataset;
@@ -186,6 +186,7 @@ BOOL CBookInDlg::OnInitDialog()
 		m_pBookDataset->dataOrder(CBookData::compByIdDec);
 		m_pBookDataset->dataToListCtrl(&listBook);
 
+		m_pBookDataset->SetBookNoLeftToRed(&listBook);
 
 		ClearEditText();//主要是用来设定书号
 	}

@@ -152,6 +152,12 @@ public:
 
 	//父类纯虚函数的实现
 public:
+	void DecBookNum() {
+		nLeft--;
+	}
+	void IncBookNum() {
+		nLeft++;
+	}
 	//返回第i个字段的值
 	virtual CString operator[](int i) {
 		CString s;
@@ -450,6 +456,9 @@ public:
 	int CheckIfHaveTheBookById(CString Id);
 	CString CheckIfHaveTheBookByName(CString Name);//返回值为CString类型的书籍Id 若没有返回""
 	CString GetBookNameById(CString Id);
+	void DecBookNum(CString BookId);
+	void IncBookNum(CString BookId);
+	void SetBookNoLeftToRed(CMyCListCtrl* pListCtrl);
 };
 //读者数据集
 class CReaderDataset : public CDataset<CReaderData>

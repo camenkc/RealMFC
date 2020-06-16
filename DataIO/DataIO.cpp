@@ -401,6 +401,38 @@ CString CBookDataset::GetBookNameById(CString Id) {
 		it++;
 	}return CString("");
 }
+void CBookDataset::DecBookNum(CString BookId) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(BookId) == 0) {
+			(*it).DecBookNum();
+			return;
+		}
+		it++;
+	}
+}
+void CBookDataset::IncBookNum(CString BookId) {
+	vector<CBookData>::iterator it = aData.begin();
+	while (it != aData.end()) {
+		if ((*it)[0].Compare(BookId) == 0) {
+			(*it).IncBookNum();
+			return;
+		}
+		it++;
+	}
+}
+void CBookDataset::SetBookNoLeftToRed(CMyCListCtrl* pListCtrl) {
+	vector<CBookData>::iterator it = aData.begin();
+	int nowRow = 0;
+	while (it != aData.end()) {
+		if ((*it)[6].Compare("0") == 0) {
+			for (int i=0;i<7;i++)
+				pListCtrl->SetItemTextColor(i, nowRow, RGB(255, 0, 0));
+		}
+		nowRow++;
+		it++;
+	}
+}
 //--------------------------------------------------
 /************************************************
    CBookDataset ³ÉÔ±º¯Êý End

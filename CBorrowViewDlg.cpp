@@ -47,6 +47,8 @@ BOOL CBorrowViewDlg::OnInitDialog()
 
 	pBorrowDataset->dataToListCtrl(&BorrowList);
 
+	
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
@@ -78,6 +80,8 @@ void CBorrowViewDlg::OnBnClickedOk()
 	pBorrowDataset->selectData(tmpBorrowDataset, sField, eEqual, sVal);
 
 	pBorrowDataset->dataToListCtrl(&BorrowList, &tmpBorrowDataset);
+
+	
 }
 
 //回到初始状态

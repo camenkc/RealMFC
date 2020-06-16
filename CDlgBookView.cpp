@@ -68,8 +68,6 @@ BOOL CDlgBookView::OnInitDialog()//初始化控件
 	list.SetRowHeigtFactor(1.3);
 	//第二列 文本为蓝色
 	list.SetColTextColor(1, RGB(0, 0, 255));
-	//第2列 第3行 
-	list.SetItemTextColor(1, 2, RGB(0, 255, 0));
 
 	m_pBookDataset = new CBookDataset;
 
@@ -82,6 +80,7 @@ BOOL CDlgBookView::OnInitDialog()//初始化控件
 		//把数据显示到列表控件里
 		m_pBookDataset->dataToListCtrl(&list);//////////////////////////
 
+		m_pBookDataset->SetBookNoLeftToRed(&list);
 		for (int i = 0; i<aField.size(); i++) {
 			cmbForSel.AddString(aField[i]);
 			cmbForSort.AddString(aField[i]);

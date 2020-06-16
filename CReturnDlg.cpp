@@ -83,6 +83,7 @@ void CReturnDlg::OnBnClickedButton2()
 		nHistoryId++;
 		int nBookId = _ttoi(s1);
 		int nBorrowId = _ttoi(tmp);
+		pBookDataset->IncBookNum(s1);
 		CBorrowData* TarBorrowData = pBorrowDataset->getItemByKeyVal("Id", nBorrowId);
 		CString BorrowDate = (*TarBorrowData)[3];
 		CString BorrowTime = (*TarBorrowData)[4];
@@ -91,6 +92,7 @@ void CReturnDlg::OnBnClickedButton2()
 		//从BorrowDataset中删除tmp编号
 		pBorrowDataset->deleteItemByKeyVal("Id", nBorrowId);
 		pBorrowDataset->saveAllDataToFile();
+		pBookDataset->saveAllDataToFile();
 		MessageBox(_T(CString("已归还")), _T(""), MB_OK | MB_ICONINFORMATION);
 	
 	}
