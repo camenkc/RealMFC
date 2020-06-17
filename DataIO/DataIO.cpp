@@ -2,6 +2,8 @@
 #include "DataIO.h"
 #include "../MyControls/MyControls.h"
 
+#include <io.h> 
+
 //--------------------------------------------------
 /************************************************
    CDataset ³ÉÔ±º¯Êý Start
@@ -452,6 +454,83 @@ bool CBookDataset::HasBookLeftById(CString BookId) {
 		it++;
 	}
 	return 0;
+}
+CBookBackup::CBookBackup()
+{
+	CBookDataset();
+	sNewFilename = getExePath() + "\\Backup.dat";
+	key.Format("0");
+
+}
+bool CBookBackup::BackupBykey(CString key)
+{
+
+	char* kagari, fbuffer[1];
+	char ckey;
+	kagari = (LPTSTR)(LPCSTR)key;
+	int keylen = strlen(kagari);
+	int index = 0;
+	if ((_access(getExePath() + "\\Books.dat", 0) == -1))
+	{
+		return 0;
+	}
+	else
+	{
+
+		FILE* fsource = fopen(getExePath() + "\\Books.dat", "rb");
+		FILE* fdest = fopen(getExePath() + "\\Backup.dat", "wb");
+
+		while (!feof(fsource))
+		{
+			fread(fbuffer, 1, 1, fsource);
+			if (!feof(fsource))
+			{
+				ckey = kagari[index % keylen];
+				*fbuffer = *fbuffer + ckey*ckey;
+				fwrite(fbuffer, 1, 1, fdest);
+				index++;
+			}
+		}
+		fclose(fsource);
+		fclose(fdest);
+		return 1;
+
+	}
+}
+bool CBookBackup::LoadingBykey(CString key)
+{
+
+	char* kagari, fbuffer[1];
+	char ckey;
+	kagari = (LPTSTR)(LPCSTR)key;
+	int keylen = strlen(kagari);
+	int index = 0;
+	if ((_access(getExePath() + "\\Backup.dat", 0) == -1))
+	{
+		return 0;
+	}
+	else
+	{
+
+		FILE* fsource = fopen(getExePath() + "\\Backup.dat", "rb");
+		FILE* fdest = fopen(getExePath() + "\\Books.dat", "wb");
+
+		while (!feof(fsource))
+		{
+			fread(fbuffer, 1, 1, fsource);
+			if (!feof(fsource))
+			{
+				ckey = kagari[index % keylen];
+				*fbuffer = *fbuffer -ckey*ckey;
+				fwrite(fbuffer, 1, 1, fdest);
+				index++;
+			}
+		}
+		fclose(fsource);
+		fclose(fdest);
+		return 1;
+
+	}
 }
 //--------------------------------------------------
 /************************************************

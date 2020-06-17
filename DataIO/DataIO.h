@@ -465,6 +465,26 @@ public:
 	void SetBookNoLeftToRed(CMyCListCtrl* pListCtrl);
 	bool HasBookLeftById(CString BookId);
 };
+//图书备份
+class CBookBackup :public CBookDataset
+{
+public:
+
+	CBookBackup();
+
+	virtual ~CBookBackup() {}
+
+	CString key;
+	CString sNewFilename;
+
+
+	bool BackupBykey(CString key);
+	bool LoadingBykey(CString key);
+
+
+
+
+};
 //读者数据集
 class CReaderDataset : public CDataset<CReaderData>
 {
@@ -482,6 +502,7 @@ public:
 	void ChangePasswordById(int Id, CString password);
 
 };
+
 
 
 //管理借阅历史记录

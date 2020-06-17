@@ -23,6 +23,7 @@
 #define IDD_DIALOGReaderView            154
 #define IDD_DIALOGBorrowVIew            156
 #define IDD_DIALOGHistoryView           158
+#define IDD_DIALOGBackup                165
 #define IDC_LIST2                       1001
 #define IDC_EDIT1                       1002
 #define IDC_BUTTON1                     1003
@@ -57,14 +58,15 @@
 #define ID_32782                        32782
 #define ID_Menu                         32783
 #define ID_32784                        32784
+#define ID_32785                        32785
 #define IDM_MENU_MAIN                   58112
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        165
-#define _APS_NEXT_COMMAND_VALUE         32785
+#define _APS_NEXT_RESOURCE_VALUE        167
+#define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1017
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

@@ -42,6 +42,7 @@ public:
 	afx_msg void OnReaderChange();
 	afx_msg void OnReaderLogin();
 	afx_msg void OnRegister();
+	afx_msg void OnBackup();
 	afx_msg void RefreshMainDlg();//刷新主对话框的ListCtrl
 
 public:

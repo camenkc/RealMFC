@@ -14,7 +14,7 @@
 #include "afxdialogex.h"
 #include"CBookInDlg.h"
 #include "CReaderViewDlg.h"
-
+#include"CBackupDlg.h"
 #include "CBorrowViewDlg.h"
 #include "CHistoryViewDlg.h"
 #include"CDlgBookView.h"
@@ -94,6 +94,7 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32782, &CMFCTest03Dlg::OnReaderView)
 	ON_COMMAND(ID_Menu, &CMFCTest03Dlg::OnBorrowView)
 	ON_COMMAND(ID_32784, &CMFCTest03Dlg::OnHistoryVIewDlg)
+	ON_COMMAND(ID_32785,&CMFCTest03Dlg::OnBackup)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CMFCTest03Dlg::OnNMDblclkList1)
 END_MESSAGE_MAP()
 
@@ -400,6 +401,13 @@ void CMFCTest03Dlg::OnBorrowView()
 void CMFCTest03Dlg::OnHistoryVIewDlg()
 {
 	CHistoryViewDlg dlg;
+	dlg.DoModal();
+	RefreshMainDlg();
+}
+//用于备份图书文件
+void CMFCTest03Dlg::OnBackup()
+{
+	CBackupDlg dlg;
 	dlg.DoModal();
 	RefreshMainDlg();
 }
