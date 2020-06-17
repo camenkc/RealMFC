@@ -97,3 +97,14 @@ void CBackupDlg::OnBnClickedButton2()
 		}
 	}
 }
+BOOL CBackupDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当案件为enter和escape的时候不自动退出
+		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE) {
+			return TRUE;	//返回1表示消息到此为止
+		}
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
+}

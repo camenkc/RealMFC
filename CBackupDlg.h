@@ -27,4 +27,5 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	CEdit KeyEnter;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -407,9 +407,18 @@ void CMFCTest03Dlg::OnHistoryVIewDlg()
 //用于备份图书文件
 void CMFCTest03Dlg::OnBackup()
 {
-	CBackupDlg dlg;
-	dlg.DoModal();
-	RefreshMainDlg();
+	if (NowLoginReader == 1)
+	{
+		CBackupDlg dlg;
+		dlg.DoModal();
+		RefreshMainDlg();
+
+	}
+	else
+	{
+		::MessageBox(NULL, CString("您不为管理员！"), CString(""), MB_OK | MB_ICONQUESTION);
+	}
+
 }
 
 

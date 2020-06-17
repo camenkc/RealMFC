@@ -34,4 +34,5 @@ public:
 	afx_msg void OnBnClickedRadio1();
 	afx_msg void OnBnClickedRadio2();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
 };
