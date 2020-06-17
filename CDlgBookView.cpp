@@ -51,6 +51,7 @@ ON_CBN_SELCHANGE(IDC_COMBO3, &CDlgBookView::OnCbnSelchangeCombo3)
 ON_CBN_SELCHANGE(IDC_COMBO2, &CDlgBookView::OnCbnSelchangeCombo2)
 ON_CBN_SELCHANGE(IDC_COMBO4, &CDlgBookView::OnCbnSelchangeCombo4)
 ON_EN_CHANGE(IDC_EDIT1, &CDlgBookView::OnEnChangeEdit1)
+ON_BN_CLICKED(IDC_BUTTON3, &CDlgBookView::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -280,3 +281,10 @@ void CDlgBookView::OnEnChangeEdit1()
 	// TODO:  在此添加控件通知处理程序代码
 }
 
+
+
+void CDlgBookView::OnBnClickedButton3()
+{
+	OnOK();
+	OnClose();
+}

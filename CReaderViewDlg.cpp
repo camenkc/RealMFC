@@ -90,14 +90,48 @@ void CReaderViewDlg::OnBnClickedOk()
 	vector<CReaderData> tmpReaderDataset;//临时的读者集 存放需要找到的目标读者
 
 	pReaderDataset->selectData(tmpReaderDataset, sField, eEqual, sVal);
+	if (CMFCTest03Dlg::NowLoginReader != 1)//非管理员看不到账号、用户权限
+	{
+		pReaderDataset->dataToListCtrl(&ReaderList, &tmpReaderDataset, 0);
+	}
+	else
+	{
+		pReaderDataset->dataToListCtrl(&ReaderList, &tmpReaderDataset);
+		
+	}
+	const int loginreader = CMFCTest03Dlg::NowLoginReader;
 
-	pReaderDataset->dataToListCtrl(&ReaderList, &tmpReaderDataset);
+
+	if (pReaderDataset->getClassById(loginreader) != 1)
+	{
+		//pReaderDataset->clearByCol(&ReaderList, 1);
+		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);
+		ReaderList.DeleteColumn(1);
+	}
 	
+
 }
 
 //回到初始状态
 void CReaderViewDlg::OnBnClickedButton1()
 {
-	pReaderDataset->dataToListCtrl(&ReaderList);
+	if (CMFCTest03Dlg::NowLoginReader != 1)//非管理员看不到账号、用户权限
+	{
+		pReaderDataset->dataToListCtrl(&ReaderList, NULL, 1);
+	}
+	else
+	{
+		pReaderDataset->dataToListCtrl(&ReaderList);
+	}
+	const int loginreader = CMFCTest03Dlg::NowLoginReader;
+
+
+
+	if (pReaderDataset->getClassById(loginreader) != 1)
+	{
+		//pReaderDataset->clearByCol(&ReaderList, 1);
+		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);
+		ReaderList.DeleteColumn(1);
+	}
 }
 
