@@ -8,7 +8,6 @@
 #define PCH_H
 
 // 添加要在此处预编译的标头
-#define _CRT_SECURE_NO_WARNINGS
 #include "framework.h"
 #include "./MyControls/MyControls.h"
 

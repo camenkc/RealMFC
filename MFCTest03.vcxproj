@@ -183,7 +183,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CBackupDlg.h" />
     <ClInclude Include="CBookInDlg.h" />
     <ClInclude Include="CBorrowDlg.h" />
     <ClInclude Include="CBorrowViewDlg.h" />
@@ -204,7 +203,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CBackupDlg.cpp" />
     <ClCompile Include="CBookInDlg.cpp" />
     <ClCompile Include="CBorrowDlg.cpp" />
     <ClCompile Include="CBorrowViewDlg.cpp" />
