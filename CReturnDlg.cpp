@@ -95,8 +95,8 @@ void CReturnDlg::OnBnClickedButton2()
 					int nBorrowId = _ttoi(tmp);
 					pBookDataset->IncBookNum(s1);
 					CBorrowData* TarBorrowData = pBorrowDataset->getItemByKeyVal("Id", nBorrowId);
-					CString BorrowDate = (*TarBorrowData)[3];
-					CString BorrowTime = (*TarBorrowData)[4];
+					CString BorrowDate = (*TarBorrowData)[5];
+					CString BorrowTime = (*TarBorrowData)[6];
 					CHistoryData addData(nHistoryId, nBookId, CMFCTest03Dlg::NowLoginReader, BorrowDate.GetBuffer(), BorrowTime.GetBuffer());
 					pHistoryDataset->saveOneItemToFile(&addData);
 					//从BorrowDataset中删除tmp编号
