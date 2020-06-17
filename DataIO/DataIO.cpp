@@ -220,8 +220,10 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int 
 	clearCListCtrl(pListCtrl);
 	
 	//填写表格控件的头
-	if (CtrlCode==1)//需要隐藏密码栏
-	doListHeader(pListCtrl,1);
+	if (CtrlCode == 1)//需要隐藏密码栏
+	{
+		doListHeader(pListCtrl, 1);
+	}
 	else {
 		doListHeader(pListCtrl);
 	}
@@ -238,7 +240,13 @@ void CDataset<T> :: dataToListCtrl(CListCtrl *pListCtrl, vector<T> *m_pData,int 
 	//遍历数据集，制表
 	for(int i = 0; i < nNumItem; i++){
 		for(int j = 0; j < nNumField; j++){
-			j == 0 ? pListCtrl->InsertItem(i,  aData[i][j]) : pListCtrl->SetItemText(i,  j,  aData[i][j]);
+			if (j == 1 && CtrlCode == 1)continue;
+			if (j > 1 && CtrlCode == 1) {
+				j == 0 ? pListCtrl->InsertItem(i, aData[i][j]) : pListCtrl->SetItemText(i, j-1, aData[i][j]);
+				continue;
+			}
+			j == 0 ? pListCtrl->InsertItem(i, aData[i][j]) : pListCtrl->SetItemText(i, j, aData[i][j]);
+			
 		}
 	}
 

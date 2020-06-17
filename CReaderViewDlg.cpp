@@ -57,17 +57,6 @@ BOOL CReaderViewDlg::OnInitDialog()
 	
 
 
-	if (pReaderDataset->getClassById(loginreader)!=1)
-	{
-		//pReaderDataset->clearByCol(&ReaderList, 1);
-		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);
-		ReaderList.DeleteColumn(1);
-	}
-	else
-	{
-		return TRUE;
-	}
-
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
@@ -90,9 +79,9 @@ void CReaderViewDlg::OnBnClickedOk()
 	vector<CReaderData> tmpReaderDataset;//临时的读者集 存放需要找到的目标读者
 
 	pReaderDataset->selectData(tmpReaderDataset, sField, eEqual, sVal);
-	if (CMFCTest03Dlg::NowLoginReader != 1)//非管理员看不到账号、用户权限
+	if (CMFCTest03Dlg::NowLoginReader != 1)//非管理员看不到账号密码
 	{
-		pReaderDataset->dataToListCtrl(&ReaderList, &tmpReaderDataset, 0);
+		pReaderDataset->dataToListCtrl(&ReaderList, &tmpReaderDataset, 1);
 	}
 	else
 	{
@@ -102,13 +91,7 @@ void CReaderViewDlg::OnBnClickedOk()
 	const int loginreader = CMFCTest03Dlg::NowLoginReader;
 
 
-	if (pReaderDataset->getClassById(loginreader) != 1)
-	{
-		//pReaderDataset->clearByCol(&ReaderList, 1);
-		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);
-		ReaderList.DeleteColumn(1);
-	}
-	
+
 
 }
 
@@ -127,11 +110,5 @@ void CReaderViewDlg::OnBnClickedButton1()
 
 
 
-	if (pReaderDataset->getClassById(loginreader) != 1)
-	{
-		//pReaderDataset->clearByCol(&ReaderList, 1);
-		//CDataset<CReaderData>::clearByCol(&ReaderList, 1);
-		ReaderList.DeleteColumn(1);
-	}
 }
 
