@@ -59,13 +59,15 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	if (s1.IsEmpty()) 
 	{
 		MessageBox(_T(CString("请输入原密码")), _T(""), MB_OK | MB_ICONINFORMATION);
+		return;
 	}
 	int tmp = pReaderDataset->CheckIfHasTheReader(CMFCTest03Dlg::NowLoginReader, s1);
 	if (!tmp) 
 	{
 		MessageBox(_T(CString("原密码错误")), _T(""), MB_OK | MB_ICONINFORMATION);
 		OriginPassword.SetSel(0, -1);
-	}else if (s2.IsEmpty())
+	}
+	/*else if (s2.IsEmpty())
 	{
 		MessageBox(_T(CString("账户名字不能为空")), _T(""), MB_OK | MB_ICONINFORMATION);
 		TobeChangeName.SetSel(0, -1);
@@ -73,16 +75,21 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	{
 		MessageBox(_T(CString("密码不能为空")), _T(""), MB_OK | MB_ICONINFORMATION);
 		TobeChangePassword.SetSel(0, -1);
-		}
-	else if (s4.Compare(s3) == 0)
+		}*/  
+		//这里不需要保证一定不能为空
+	if (s4.Compare(s3) != 0)
 	{
 		MessageBox(_T(CString("重复密码不匹配")), _T(""), MB_OK | MB_ICONINFORMATION);
 		TobeChangePasswordRepeat.SetSel(0, -1);
 	}else
 	{
+		
 		pReaderDataset->ChangeNameById(CMFCTest03Dlg::NowLoginReader, s2);
-		pReaderDataset->ChangePasswordById(CMFCTest03Dlg::NowLoginReader, s3);
-		MessageBox(_T(CString("账户资料已修改")), _T(""), MB_OK | MB_ICONINFORMATION);
+		if (s3.Compare("") != 0) {
+			pReaderDataset->ChangePasswordById(CMFCTest03Dlg::NowLoginReader, s3);
+			MessageBox(_T(CString("账户密码已修改")), _T(""), MB_OK | MB_ICONINFORMATION);
+		}
+		MessageBox(_T(CString("账户信息已修改")), _T(""), MB_OK | MB_ICONINFORMATION);
 	}
 	pReaderDataset->saveAllDataToFile();
 	OnOK();

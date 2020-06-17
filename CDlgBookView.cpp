@@ -16,9 +16,9 @@ CDlgBookView::CDlgBookView(CWnd* pParent /*=nullptr*/)
 {
 	m_pBookDataset = NULL;
 	
-	char* aName[6] = { "Id","书名","书号","作者","出版社","单价" };
+	char* aName[7] = { "Id","书名","书号","作者","出版社","单价","库存" };
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		aField.push_back(aName[i]);
 	}
 	
@@ -218,6 +218,13 @@ void CDlgBookView::OnBnClickedButton2()
 		else if (sFieldForSort == "单价" && sSortType == "降序") {
 			m_pBookDataset->dataOrder(CBookData::compByPriceDec);
 		}
+		else if (sFieldForSort == "库存" && sSortType == "升序") {
+			m_pBookDataset->dataOrder(CBookData::compByLeftAsc);
+		}
+		else if (sFieldForSort == "库存" && sSortType == "降序") {
+			m_pBookDataset->dataOrder(CBookData::compByLeftDec);
+		}
+
 
 
 		m_pBookDataset->dataToListCtrl(&list);

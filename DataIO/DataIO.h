@@ -233,10 +233,10 @@ public:
 	static bool compByPubHouseDec(const CBookData& b1, const CBookData& b2) {
 		return strcmp(b1.sPubHouse, b2.sPubHouse) > 0; //½µÐò
 	}
-	static bool compByPubLeftAsc(const CBookData& b1, const CBookData& b2) {
+	static bool compByLeftAsc(const CBookData& b1, const CBookData& b2) {
 		return b1.nLeft < b2.nLeft; //ÉýÐò
 	}
-	static bool compByPubLeftDec(const CBookData& b1, const CBookData& b2) {
+	static bool compByLeftDec(const CBookData& b1, const CBookData& b2) {
 		return  b1.nLeft > b2.nLeft;  //½µÐò
 	}
 
