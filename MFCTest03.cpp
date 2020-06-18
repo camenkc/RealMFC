@@ -37,6 +37,7 @@ CMFCTest03App theApp;
 //否则在include到其他文件进行定义时会报错！！！！
 int CMFCTest03Dlg::NowLoginReader = 0;
 int CMFCTest03Dlg::MayBeReturnBookId = 0;
+CString CMFCTest03Dlg::MayBeReturnBookName = 0;
 // CMFCTest03App 初始化
 
 BOOL CMFCTest03App::InitInstance()

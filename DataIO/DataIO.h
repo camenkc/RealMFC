@@ -318,7 +318,6 @@ public:
 	char   strBookName[31];
 	char   strBorrowDate[31];
 	char   strBorrowTime[31];
-	//姑且表明：用户权限1为管理员，用户权限为0为普通读者
 	CBorrowData(int id = 0, int nReaderId = 0, int nBookId = 0, char* sReaderName = "", char* sBookName = "", char* strData = "", char* strTime = "")
 	{
 		nBorrowId = id;
@@ -459,7 +458,7 @@ public:
 	int CheckIfHaveTheBookById(CString Id);
 	CString CheckIfHaveTheBookByName(CString Name);//返回值为CString类型的书籍Id 若没有返回""
 	CString GetBookNameById(CString Id);
-	CString GetBookIdByName(CString Id);
+	CString GetBookIdByName(CString Name);
 	void DecBookNum(CString BookId);
 	void IncBookNum(CString BookId);
 	void SetBookNoLeftToRed(CMyCListCtrl* pListCtrl);

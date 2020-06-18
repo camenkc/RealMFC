@@ -136,7 +136,8 @@ void CDlgBookView::OnBnClickedButton1()
 		sVal = sVal.Trim();
 
 		if (sVal.IsEmpty()) {
-			throw CString("请输入 [" + sField + "] 的值");
+			MessageBox(_T(CString("请输入 [" + sField + "] 的值")), _T(""), MB_OK | MB_ICONINFORMATION);
+			
 		}
 
 		ESelect eSelect;
@@ -182,7 +183,8 @@ void CDlgBookView::OnBnClickedButton2()
 {
 	try {
 		if (m_pBookDataset == NULL) {
-			throw CString("m_pBookDataset is NULL");
+			MessageBox(_T(CString("m_pBookDataset is NULL")), _T(""), MB_OK | MB_ICONINFORMATION);
+	
 		}
 
 		CString sFieldForSort, sSortType;

@@ -34,6 +34,7 @@ void CReaderViewDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CReaderViewDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CReaderViewDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON1, &CReaderViewDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDCANCEL, &CReaderViewDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -54,11 +55,12 @@ BOOL CReaderViewDlg::OnInitDialog()
 		pReaderDataset->dataToListCtrl(&ReaderList);
 	}
 	const int loginreader = CMFCTest03Dlg::NowLoginReader;
+	TargetReaderEdit.SetFocus();
+	CmbForReader.SetCurSel(0);
 	
 
 
-
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
 
@@ -75,7 +77,13 @@ void CReaderViewDlg::OnBnClickedOk()
 	else {//选择的是账号名
 		sField = "姓名";
 	}
-
+	if (sVal.IsEmpty())
+	{
+		MessageBox(_T(CString("请输入参数")), _T(""), MB_OK | MB_ICONINFORMATION);
+		TargetReaderEdit.SetFocus();
+		TargetReaderEdit.SetSel(0, -1);
+		return;
+	}
 	vector<CReaderData> tmpReaderDataset;//临时的读者集 存放需要找到的目标读者
 
 	pReaderDataset->selectData(tmpReaderDataset, sField, eEqual, sVal);
@@ -106,9 +114,35 @@ void CReaderViewDlg::OnBnClickedButton1()
 	{
 		pReaderDataset->dataToListCtrl(&ReaderList);
 	}
+	TargetReaderEdit.SetFocus();
+	TargetReaderEdit.SetSel(0, -1);
 	const int loginreader = CMFCTest03Dlg::NowLoginReader;
 
 
 
 }
+BOOL CReaderViewDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当按下回车时自动查询
+		if (pMsg->wParam == VK_RETURN)
+		{
+			OnBnClickedOk();
+			return TRUE;
 
+		}
+		else if (pMsg->message == VK_ESCAPE)
+		{
+			return TRUE;
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
+
+
+
+void CReaderViewDlg::OnBnClickedCancel()
+{
+	OnOK();
+	OnClose();
+}

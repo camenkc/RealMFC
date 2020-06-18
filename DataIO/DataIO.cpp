@@ -463,6 +463,13 @@ bool CBookDataset::HasBookLeftById(CString BookId) {
 	}
 	return 0;
 }
+//--------------------------------------------------
+/************************************************
+   CBookDataset 成员函数 End
+
+   CBookBackup 成员函数Start
+*************************************************/
+//--------------------------------------------------
 CBookBackup::CBookBackup()
 {
 	CBookDataset();
@@ -542,7 +549,7 @@ bool CBookBackup::LoadingBykey(CString key)
 }
 //--------------------------------------------------
 /************************************************
-   CBookDataset 成员函数 End
+   CBookBackup 成员函数 End
 
    CReaderDataset 成员函数Start
 *************************************************/

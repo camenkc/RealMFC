@@ -28,6 +28,8 @@ void CReturnDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT3, ReturnBookId);
 	DDX_Control(pDX, IDC_EDIT2, ReturnBookName);
+	DDX_Control(pDX, IDC_RADIO1, RadioForReturn);
+	DDX_Control(pDX, IDC_RADIO2, RadioForRetuen1);
 	((CButton*)GetDlgItem(IDC_RADIO1))->SetCheck(BST_CHECKED);
 	flag = 1;
 }
@@ -107,6 +109,11 @@ void CReturnDlg::OnBnClickedButton2()
 					ReturnBookId.SetWindowTextA("");
 					ReturnBookName.SetWindowTextA("");
 					ReturnBookId.SetFocus();
+					if (CMFCTest03Dlg::MayBeReturnBookId != 0)
+					{
+						OnOK();
+						OnClose();
+					}
 				
 					return;
 				}
@@ -131,7 +138,7 @@ void CReturnDlg::OnBnClickedButton2()
 		}
 		else
 		{
-			if (pBookDataset->CheckIfHaveTheBookByName(s2)!=1)
+			if (pBookDataset->CheckIfHaveTheBookById(pBookDataset->GetBookIdByName(s2))!=1)
 			{
 				MessageBox(_T(CString("未找到该图书，请检查图书名称\n或通知管理员书籍已被删除")), _T(""), MB_OK | MB_ICONINFORMATION);
 				ReturnBookName.SetFocus();
@@ -193,10 +200,16 @@ BOOL CReturnDlg::OnInitDialog()
 	// TODO:  在此添加额外的初始化
 	if (CMFCTest03Dlg::MayBeReturnBookId != 0) {
 		CString tmp; tmp.Format("%d", CMFCTest03Dlg::MayBeReturnBookId);
+
 		ReturnBookId.SetWindowTextA(tmp);
+		ReturnBookName.SetWindowTextA(CMFCTest03Dlg::MayBeReturnBookName);
+		ReturnBookId.EnableWindow(FALSE);
+		RadioForReturn.EnableWindow(FALSE);
+		RadioForRetuen1.EnableWindow(FALSE);
+	
 	}
 
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
 

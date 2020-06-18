@@ -96,6 +96,7 @@ BEGIN_MESSAGE_MAP(CMFCTest03Dlg, CDialogEx)
 	ON_COMMAND(ID_32784, &CMFCTest03Dlg::OnHistoryVIewDlg)
 	ON_COMMAND(ID_32785,&CMFCTest03Dlg::OnBackup)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CMFCTest03Dlg::OnNMDblclkList1)
+	
 END_MESSAGE_MAP()
 
 
@@ -254,6 +255,12 @@ void CMFCTest03Dlg::OnReaderChange()
 {
 	CReaderChangeDlg dlg;
 	dlg.DoModal();
+	CString tmp;
+
+
+	pReaderDataset->readAllData();
+	tmp.Format("%s", pReaderDataset->getNameById(NowLoginReader));
+	NowReaderCode.SetWindowTextA(tmp);
 	RefreshMainDlg();
 }
 
@@ -376,6 +383,8 @@ void CMFCTest03Dlg::OnLogoutClicked()
 		CMenu* subsubMenu = subMenu->GetSubMenu(0);
 		subsubMenu->EnableMenuItem(0, MF_BYPOSITION | MF_ENABLED);
 		subMenu->EnableMenuItem(3, MF_BYPOSITION | MF_GRAYED);
+		CMenu* ssMenu = GetMenu();
+		ssMenu->EnableMenuItem(2, MF_BYPOSITION | MF_GRAYED);
 		MessageBox("账号已成功退出", "", MB_OK | MB_ICONINFORMATION);
 	}
 	RefreshMainDlg();
@@ -433,13 +442,25 @@ void CMFCTest03Dlg::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 
 	MayBeReturnBookId=atoi(MainBorrowList.GetItemText(nRowSel, 2));
-
+	MayBeReturnBookName.Format(MainBorrowList.GetItemText(nRowSel, 4));
 	CReturnDlg dlg;
 	dlg.DoModal();
 
 	MayBeReturnBookId = 0;
-
+	MayBeReturnBookName.Format("");
 	*pResult = 0;
 	
 	RefreshMainDlg();
 }
+BOOL CMFCTest03Dlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当案件为enter和escape的时候不自动退出
+		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE) {
+			return TRUE;	//返回1表示消息到此为止
+		}
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
+

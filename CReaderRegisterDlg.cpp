@@ -91,6 +91,8 @@ void CReaderRegisterDlg::OnBnClickedButton1()
 		if (compareReaderData != NULL) 
 		{
 			MessageBox(_T(CString("账号名已被注册")), _T(""), MB_OK | MB_ICONINFORMATION);
+			ReaderNameEditBox.SetFocus();
+			ReaderNameEditBox.SetSel(0, -1);
 			return;
 		}
 		pReaderDataset->saveOneItemToFile(&tmpReaderData);
@@ -101,11 +103,6 @@ void CReaderRegisterDlg::OnBnClickedButton1()
 			CMFCTest03Dlg::NowLoginReader = maxReadrNum;
 
 		}
-
-		//ReaderNameEditBox.SetWindowTextA("");
-		//OnInitDialog();
-		//ReaderPassword.SetWindowTextA("");
-		//ReaderPasswordRepeat.SetWindowTextA("");
 	
 		OnOK();
 		OnClose();

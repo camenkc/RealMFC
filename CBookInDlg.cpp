@@ -64,7 +64,8 @@ void CBookInDlg::ClearEditText() {
 
 	for (int i = 0; i < 7; i++) {
 		if (GetDlgItem(aId[i]) == NULL) {
-			AfxMessageBox(aName[i] + (CString)" 对象的文本框不存在");
+
+			MessageBox(_T(aName[i] + (CString)" 对象的文本框不存在"), _T(""), MB_OK | MB_ICONINFORMATION);
 			return;
 		}
 		GetDlgItem(aId[i])->SetWindowTextA("");
@@ -99,14 +100,17 @@ void CBookInDlg::OnBnClickedButton1()
 		vector <CString> aStr;
 		CString s;
 		for (int i = 0; i < 7; i++) {
-			if (GetDlgItem(aId[i]) == NULL) { throw CString(aName[i] + (CString)" 对象文本不存在"); }
+			if (GetDlgItem(aId[i]) == NULL) { MessageBox(_T(CString(aName[i] + (CString)" 对象文本不存在")), _T(""), MB_OK | MB_ICONINFORMATION);
+			}
 			
 			GetDlgItem(aId[i])->GetWindowTextA(s);
 
 			//删除前后空格
 			s = s.Trim();
-			if (s.IsEmpty()) {
-				throw CString("请输入正确的" + (CString)aName[i]);
+			if (s.IsEmpty()) 
+			{
+				MessageBox(_T(CString("请输入正确的") + (CString)aName[i]), _T(""), MB_OK | MB_ICONINFORMATION);
+				
 			}
 
 			if (i == 5) {
@@ -115,8 +119,9 @@ void CBookInDlg::OnBnClickedButton1()
 			aStr.push_back(s);
 		}
 
-		if (aStr.size() != 7) {
-			throw CString("aStr.size() != 7");
+		if (aStr.size() != 7)
+		{
+			MessageBox(_T(CString("aStr.size() != 7")), _T(""), MB_OK | MB_ICONINFORMATION);
 		}
 		CBookData bookData(
 			atoi(aStr[0]),
@@ -215,7 +220,7 @@ void CBookInDlg::OnNMDblclkList2(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	*pResult = 0;
-	UINT aId[6] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6 };
+	UINT aId[7] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6 ,IDC_EDIT8 };
 
 	//获取被双击的行
 	int nRowSel = listBook.GetNextItem(-1, LVNI_SELECTED);

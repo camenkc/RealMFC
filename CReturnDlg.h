@@ -30,6 +30,8 @@ public:
 	int flag;
 	CEdit ReturnBookId;
 	CEdit ReturnBookName;
+	CEdit RadioForReturn;
+	CEdit RadioForRetuen1;
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton1();
 	virtual BOOL OnInitDialog();

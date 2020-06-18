@@ -50,8 +50,8 @@ BOOL CHistoryViewDlg::OnInitDialog()
 	pHistoryDataset->dataToListCtrl(&HistoryList);
 
 	CmbForHistory.SetCurSel(0);
-
-	return TRUE;  // return TRUE unless you set the focus to a control
+	TargetHistoryEdit.SetFocus();
+	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
 
@@ -60,6 +60,8 @@ BOOL CHistoryViewDlg::OnInitDialog()
 void CHistoryViewDlg::OnBnClickedButton2()
 {
 	pHistoryDataset->dataToListCtrl(&HistoryList);
+	TargetHistoryEdit.SetFocus();
+	TargetHistoryEdit.SetSel(0, -1);
 }
 
 
@@ -110,8 +112,9 @@ void CHistoryViewDlg::OnBnClickedButton1()
 
 BOOL CHistoryViewDlg::PreTranslateMessage(MSG* pMsg)
 {
+
 	if (pMsg->message == WM_KEYDOWN) {
-		//当案件为enter时自动登录
+		//当按下回车时自动查询
 		if (pMsg->wParam == VK_RETURN)
 		{
 			OnBnClickedButton1();
@@ -123,5 +126,6 @@ BOOL CHistoryViewDlg::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 		}
 	}
+
 	return CDialogEx::PreTranslateMessage(pMsg);
 }

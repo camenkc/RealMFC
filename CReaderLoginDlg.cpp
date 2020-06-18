@@ -55,6 +55,7 @@ void CReaderLoginDlg::OnBnClickedButton1()
 	else 
 	{
 		MessageBox(_T(CString("用户不存在或密码错误")), _T(""), MB_OK | MB_ICONINFORMATION);
+		ReaderPasswordEdit.SetFocus();
 		ReaderPasswordEdit.SetSel(0, -1);
 		
 	}

@@ -59,13 +59,16 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	if (s1.IsEmpty()) 
 	{
 		MessageBox(_T(CString("请输入原密码")), _T(""), MB_OK | MB_ICONINFORMATION);
+		OriginPassword.SetFocus();
 		return;
 	}
 	int tmp = pReaderDataset->CheckIfHasTheReader(CMFCTest03Dlg::NowLoginReader, s1);
 	if (!tmp) 
 	{
 		MessageBox(_T(CString("原密码错误")), _T(""), MB_OK | MB_ICONINFORMATION);
+		OriginPassword.SetFocus();
 		OriginPassword.SetSel(0, -1);
+		return;
 	}
 	/*else if (s2.IsEmpty())
 	{
@@ -80,10 +83,26 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	if (s4.Compare(s3) != 0)
 	{
 		MessageBox(_T(CString("重复密码不匹配")), _T(""), MB_OK | MB_ICONINFORMATION);
+		TobeChangePasswordRepeat.SetFocus();
 		TobeChangePasswordRepeat.SetSel(0, -1);
-	}else
+		return;
+	}
+	else
 	{
-		
+		if (s2.Compare(pReaderDataset->getNameById(CMFCTest03Dlg::NowLoginReader)) != 0)
+		{
+			CReaderData tmpReaderData(pReaderDataset->getMaxVal("Id"), s3.GetBuffer(), s2.GetBuffer(), 0);
+			//判重 账号名有相同时 报错
+			CReaderData* compareReaderData = pReaderDataset->getItemByName(s2.GetBuffer());
+			if (compareReaderData != NULL)
+			{
+				MessageBox(_T(CString("账号名已存在")), _T(""), MB_OK | MB_ICONINFORMATION);
+				TobeChangeName.SetFocus();
+				TobeChangeName.SetSel(0, -1);
+				return;
+			}				
+
+		}
 		pReaderDataset->ChangeNameById(CMFCTest03Dlg::NowLoginReader, s2);
 		if (s3.Compare("") != 0) {
 			pReaderDataset->ChangePasswordById(CMFCTest03Dlg::NowLoginReader, s3);
@@ -94,6 +113,17 @@ void CReaderChangeDlg::OnBnClickedButton1()
 	pReaderDataset->saveAllDataToFile();
 	OnOK();
 	OnClose();
+}
+BOOL CReaderChangeDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN) {
+		//当案件为enter和escape的时候不自动退出
+		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE) {
+			return TRUE;	//返回1表示消息到此为止
+		}
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
 void CReaderChangeDlg::OnBnClickedButton2()

@@ -29,4 +29,5 @@ public:
 	afx_msg void OnBnClickedButton1();
 	CEdit TobeChangePasswordRepeat;
 	afx_msg void OnBnClickedButton2();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -48,8 +48,8 @@ BOOL CBorrowViewDlg::OnInitDialog()
 	pBorrowDataset->dataToListCtrl(&BorrowList);
 
 	CmbForBorrow.SetCurSel(0);
-
-	return TRUE;  // return TRUE unless you set the focus to a control
+	TargetBorrowEdit.SetFocus();
+	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
 
@@ -97,11 +97,13 @@ void CBorrowViewDlg::OnBnClickedOk()
 void CBorrowViewDlg::OnBnClickedButton1()
 {
 	pBorrowDataset->dataToListCtrl(&BorrowList);
+	TargetBorrowEdit.SetFocus();
+	TargetBorrowEdit.SetSel(0, -1);
 }
 BOOL CBorrowViewDlg::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->message == WM_KEYDOWN) {
-		//当案件为enter时自动登录
+		//当按下回车时自动查询
 		if (pMsg->wParam == VK_RETURN)
 		{
 			OnBnClickedOk();
